@@ -1,7 +1,7 @@
 # Проект «Киноман»
 
 * Студент: [Павел Итчин](https://up.htmlacademy.ru/ecmascript/15/user/1032731).
-* Наставник: `Неизвестно`.
+* Наставник: [Ксения Толстых](https://htmlacademy.ru/profile/id618277).
 
 ---
 
