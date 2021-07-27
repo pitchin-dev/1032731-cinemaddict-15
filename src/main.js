@@ -10,7 +10,7 @@ const footerStats = document.querySelector('.footer__statistics');
 
 const render = (container, template, place) => {
   container.insertAdjacentHTML(place, template);
-}
+};
 
 render(header, createUserRankTemplate(), 'beforeend');
 render(main, createMenuTemplate(), 'beforeend');
