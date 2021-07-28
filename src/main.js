@@ -4,6 +4,7 @@ import { createSortTemplate } from './view/sort';
 import { createMovieListTemplate } from './view/movie-list';
 import { createMovieCardTemplate } from './view/movie-card';
 import { createMovieStatsTemplate } from './view/movie-stats';
+import { createShowMoreButtonTemplate } from './view/show-more-button';
 
 const FILMS_LIST_QUANTITY = 5;
 const FILMS_LIST_EXTRA_QUANTITY = 2;
@@ -30,6 +31,8 @@ const filmsListMostCommentedContainer = filmsListMostCommented.querySelector('.f
 for (let i = 0; i < FILMS_LIST_QUANTITY; i++) {
   render(filmsListContainer, createMovieCardTemplate(), 'beforeend');
 }
+
+render(filmsList, createShowMoreButtonTemplate(), 'beforeend');
 
 for (let i = 0; i < FILMS_LIST_EXTRA_QUANTITY; i++) {
   render(filmsListTopRatedContainer, createMovieCardTemplate(), 'beforeend');
