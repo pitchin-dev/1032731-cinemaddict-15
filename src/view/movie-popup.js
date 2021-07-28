@@ -151,4 +151,4 @@ const createPopupTemplate = () => (
   </section>`
 );
 
-export {createPopupTemplate}
+export {createPopupTemplate};
