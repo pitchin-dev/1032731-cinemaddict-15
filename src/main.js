@@ -5,11 +5,13 @@ import { createMovieListTemplate } from './view/movie-list';
 import { createMovieCardTemplate } from './view/movie-card';
 import { createMovieStatsTemplate } from './view/movie-stats';
 import { createShowMoreButtonTemplate } from './view/show-more-button';
+import { createPopupTemplate } from './view/movie-popup';
 
 const FILMS_LIST_QUANTITY = 5;
 const FILMS_LIST_EXTRA_QUANTITY = 2;
 const header = document.querySelector('.header');
 const main = document.querySelector('.main');
+const footer = document.querySelector('.footer');
 const footerStats = document.querySelector('.footer__statistics');
 
 const render = (container, template, place) => {
@@ -43,3 +45,4 @@ for (let i = 0; i < FILMS_LIST_EXTRA_QUANTITY; i++) {
 }
 
 render(footerStats, createMovieStatsTemplate(), 'beforeend');
+render(footer, createPopupTemplate(), 'afterend');

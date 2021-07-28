@@ -150,3 +150,5 @@ const createPopupTemplate = () => (
     </form>
   </section>`
 );
+
+export {createPopupTemplate}
