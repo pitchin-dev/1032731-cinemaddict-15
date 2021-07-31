@@ -14,4 +14,8 @@ const getRandomFloat = (a = 0, b = 1) => {
   return (lower + Math.random() * (upper - lower + 1)).toFixed(1);
 };
 
-export {getRandomInteger, getRandomFloat};
+const render = (container, template, place = 'beforeend') => {
+  container.insertAdjacentHTML(place, template);
+};
+
+export {getRandomInteger, getRandomFloat, render};
