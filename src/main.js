@@ -23,10 +23,23 @@ for (let i = 0; i < FILMS_LIST_QUANTITY; i++) {
 
 const filmsMostCommented = films.slice(0).sort((a, b) => b.comments.length - a.comments.length).slice(0, 2);
 const filmsTopRated = films.slice(0).sort((a, b) => b.rating - a.rating).slice(0, 2);
+const sortedByDefault = {
+  label: 'Sort by default',
+  data: films.slice(0),
+};
+const sortedByDate = {
+  label: 'Sorted by date',
+  data: films.slice(0).sort((a, b) => b.year - a.year),
+};
+const sortedByRating = {
+  label: 'Sorted by rating',
+  data: films.slice(0).sort((a, b) => b.rating - a.rating),
+};
+const sortButtons = [sortedByDefault, sortedByDate, sortedByRating];
 
 render(header, createUserRankTemplate(films));
 render(main, createMenuTemplate(films));
-render(main, createSortTemplate());
+render(main, createSortTemplate(sortButtons));
 render(main, createMovieListTemplate());
 
 const filmsList = document.querySelector('.films-list');
