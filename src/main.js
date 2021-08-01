@@ -16,7 +16,6 @@ const header = document.querySelector('.header');
 const main = document.querySelector('.main');
 const footerStats = document.querySelector('.footer__statistics');
 const films = [];
-let filmsCounter = 0;
 
 for (let i = 0; i < FILMS_LIST_QUANTITY; i++) {
   films.push(createMovie());
@@ -38,22 +37,25 @@ const filmsListMostCommentedContainer = filmsListMostCommented.querySelector('.f
 for (let i = 0; i < FILM_BLOCK_SIZE; i++) {
   render(filmsListContainer, createMovieCardTemplate(films[i]));
 }
-filmsCounter += FILM_BLOCK_SIZE;
 
-render(filmsList, createShowMoreButtonTemplate());
+if (films.length > FILM_BLOCK_SIZE) {
+  let filmsCounter = FILM_BLOCK_SIZE;
 
-const showMoreButton = document.querySelector('.films-list__show-more');
+  render(filmsList, createShowMoreButtonTemplate());
 
-showMoreButton.addEventListener('click', () => {
-  if (filmsCounter < films.length) {
-    for (let i = filmsCounter; i < filmsCounter + FILM_BLOCK_SIZE; i++) {
-      render(filmsListContainer, createMovieCardTemplate(films[i]));
+  const showMoreButton = document.querySelector('.films-list__show-more');
+
+  showMoreButton.addEventListener('click', () => {
+    if (filmsCounter < films.length) {
+      for (let i = filmsCounter; i < filmsCounter + FILM_BLOCK_SIZE; i++) {
+        render(filmsListContainer, createMovieCardTemplate(films[i]));
+      }
+      filmsCounter += FILM_BLOCK_SIZE;
+    } else {
+      showMoreButton.style.display = 'none';
     }
-    filmsCounter += FILM_BLOCK_SIZE;
-  } else {
-    showMoreButton.style.display = 'none';
-  }
-});
+  });
+}
 
 for (let i = 0; i < FILMS_LIST_EXTRA_QUANTITY; i++) {
   render(filmsListTopRatedContainer, createMovieCardTemplate(filmsTopRated(films)[i]));
