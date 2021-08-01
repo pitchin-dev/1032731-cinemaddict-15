@@ -7,6 +7,7 @@ import { createMovieStatsTemplate } from './view/movie-stats';
 import { createShowMoreButtonTemplate } from './view/show-more-button';
 import { createPopupTemplate } from './view/movie-popup';
 import { createMovie } from './mock/movie-mock.js';
+import { buttons, filmsMostCommented, filmsTopRated } from './mock/filter-mock.js';
 import { FILMS_LIST_QUANTITY, FILMS_LIST_EXTRA_QUANTITY, FILM_BLOCK_SIZE } from './const.js';
 import { render } from './utils/utils.js';
 
@@ -21,25 +22,9 @@ for (let i = 0; i < FILMS_LIST_QUANTITY; i++) {
   films.push(createMovie());
 }
 
-const filmsMostCommented = films.slice(0).sort((a, b) => b.comments.length - a.comments.length).slice(0, 2);
-const filmsTopRated = films.slice(0).sort((a, b) => b.rating - a.rating).slice(0, 2);
-const sortedByDefault = {
-  label: 'Sort by default',
-  data: films.slice(0),
-};
-const sortedByDate = {
-  label: 'Sorted by date',
-  data: films.slice(0).sort((a, b) => b.year - a.year),
-};
-const sortedByRating = {
-  label: 'Sorted by rating',
-  data: films.slice(0).sort((a, b) => b.rating - a.rating),
-};
-const sortButtons = [sortedByDefault, sortedByDate, sortedByRating];
-
 render(header, createUserRankTemplate(films));
 render(main, createMenuTemplate(films));
-render(main, createSortTemplate(sortButtons));
+render(main, createSortTemplate(buttons));
 render(main, createMovieListTemplate());
 
 const filmsList = document.querySelector('.films-list');
@@ -71,11 +56,11 @@ showMoreButton.addEventListener('click', () => {
 });
 
 for (let i = 0; i < FILMS_LIST_EXTRA_QUANTITY; i++) {
-  render(filmsListTopRatedContainer, createMovieCardTemplate(filmsTopRated[i]));
+  render(filmsListTopRatedContainer, createMovieCardTemplate(filmsTopRated(films)[i]));
 }
 
 for (let i = 0; i < FILMS_LIST_EXTRA_QUANTITY; i++) {
-  render(filmsListMostCommentedContainer, createMovieCardTemplate(filmsMostCommented[i]));
+  render(filmsListMostCommentedContainer, createMovieCardTemplate(filmsMostCommented(films)[i]));
 }
 
 render(footerStats, createMovieStatsTemplate(films));
