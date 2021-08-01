@@ -1,4 +1,4 @@
-const createComment = (comment) => (
+const createCommentTemplate = (comment) => (
   `<li class="film-details__comment">
     <span class="film-details__comment-emoji">
       <img src="./images/emoji/${comment.emotion}.png" width="55" height="55" alt="emoji-${comment.emotion}">
@@ -15,7 +15,7 @@ const createComment = (comment) => (
 );
 
 const createCommentList = (comments) => {
-  const commentList = new Array(comments.length).fill(null).map((_, index) => createComment(comments[index]));
+  const commentList = new Array(comments.length).fill(null).map((_, index) => createCommentTemplate(comments[index]));
   return commentList;
 };
 
