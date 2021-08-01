@@ -13,6 +13,6 @@ const createMenuTemplate = (movies) => {
       <a href="#stats" class="main-navigation__additional">Stats</a>
     </nav>`
   );
-}
+};
 
 export {createMenuTemplate};
