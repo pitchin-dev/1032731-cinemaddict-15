@@ -21,6 +21,9 @@ for (let i = 0; i < FILMS_LIST_QUANTITY; i++) {
   films.push(createMovie());
 }
 
+const filmsMostCommented = films.slice(0).sort((a, b) => b.comments.length - a.comments.length).slice(0, 2);
+const filmsTopRated = films.slice(0).sort((a, b) => b.rating - a.rating).slice(0, 2);
+
 render(header, createUserRankTemplate(films));
 render(main, createMenuTemplate(films));
 render(main, createSortTemplate());
@@ -55,11 +58,11 @@ showMoreButton.addEventListener('click', () => {
 });
 
 for (let i = 0; i < FILMS_LIST_EXTRA_QUANTITY; i++) {
-  render(filmsListTopRatedContainer, createMovieCardTemplate(films.slice(0).sort((a, b) => b.rating - a.rating).slice(0, 2)[i]));
+  render(filmsListTopRatedContainer, createMovieCardTemplate(filmsTopRated[i]));
 }
 
 for (let i = 0; i < FILMS_LIST_EXTRA_QUANTITY; i++) {
-  render(filmsListMostCommentedContainer, createMovieCardTemplate(films.slice(0).sort((a, b) => b.comments.length - a.comments.length).slice(0, 2)[i]));
+  render(filmsListMostCommentedContainer, createMovieCardTemplate(filmsMostCommented[i]));
 }
 
 render(footerStats, createMovieStatsTemplate(films));
