@@ -1,8 +1,8 @@
-const createSortTemplate = () => (
+const createSortTemplate = ([sortedByDefault, sortedByDate, sortedByRating]) => (
   `<ul class="sort">
-    <li><a href="#" class="sort__button sort__button--active">Sort by default</a></li>
-    <li><a href="#" class="sort__button">Sort by date</a></li>
-    <li><a href="#" class="sort__button">Sort by rating</a></li>
+    <li><a href="#" class="sort__button sort__button--active">${sortedByDefault.label}</a></li>
+    <li><a href="#" class="sort__button">${sortedByDate.label}</a></li>
+    <li><a href="#" class="sort__button">${sortedByRating.label}</a></li>
   </ul>`
 );
 
