@@ -8,7 +8,7 @@ const createMovieCardTemplate = (movie) => (
       <span class="film-card__genre">${movie.genre[0]}</span>
     </p>
     <img src=${movie.poster} alt="" class="film-card__poster">
-    <p class="film-card__description">${movie.description.length > 140 ? `${movie.description.substr(0, 137)}...` : movie.description}</p>
+    <p class="film-card__description">${movie.description.length > 140 ? `${movie.description.substr(0, 139)}...` : movie.description}</p>
     <a class="film-card__comments">${movie.comments.length} comments</a>
     <div class="film-card__controls">
       <button class="film-card__controls-item film-card__controls-item--add-to-watchlist ${movie.isInWatchlist ? 'film-card__controls-item--active' : ''}" type="button">Add to watchlist</button>
