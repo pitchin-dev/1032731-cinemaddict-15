@@ -9,7 +9,6 @@ for (let i = 0; i < YEARS_RANGE; i++) {
 
 const createMovie = () => {
   const createTitle = () => `${VERB[getRandomInteger(0, VERB.length - 1)]} ${NOUN[getRandomInteger(0, NOUN.length - 1)]}`;
-  createTitle();
 
   const createFullName = () => `${NAMES[getRandomInteger(0, NAMES.length - 1)]} ${SURNAMES[getRandomInteger(0, SURNAMES.length - 1)]}`;
 
