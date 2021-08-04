@@ -1,6 +1,6 @@
-const createMovieStatsTemplate = () => (
+const createMovieStatsTemplate = (movies) => (
   `<section class="footer__statistics">
-    <p>130 291 movies inside</p>
+    <p>${movies.length} movies inside</p>
   </section>`
 );
 
