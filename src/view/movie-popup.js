@@ -1,4 +1,25 @@
-import { createCommentList } from './movie-comments.js';
+import { createElement } from '../utils/utils.js';
+
+const createCommentTemplate = (comment) => (
+  `<li class="film-details__comment">
+    <span class="film-details__comment-emoji">
+      <img src="./images/emoji/${comment.emotion}.png" width="55" height="55" alt="emoji-${comment.emotion}">
+    </span>
+    <div>
+      <p class="film-details__comment-text">${comment.text}</p>
+      <p class="film-details__comment-info">
+        <span class="film-details__comment-author">${comment.author}</span>
+        <span class="film-details__comment-day">${comment.date}</span>
+        <button class="film-details__comment-delete">Delete</button>
+      </p>
+    </div>
+  </li>`
+);
+
+const createCommentList = (comments) => {
+  const commentList = new Array(comments.length).fill(null).map((_, index) => createCommentTemplate(comments[index]));
+  return commentList;
+};
 
 const createPopupTemplate = (movie) => {
   const genresList = movie.genre.join(', ');
@@ -105,3 +126,26 @@ const createPopupTemplate = (movie) => {
 };
 
 export {createPopupTemplate};
+
+export default class MoviePopup {
+  constructor(movie) {
+    this._movie = movie;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createPopupTemplate(this._movie);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
