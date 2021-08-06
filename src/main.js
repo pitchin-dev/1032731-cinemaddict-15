@@ -8,18 +8,14 @@ import MovieStatistics from './view/movie-stats';
 import MoviePopup from './view/movie-popup';
 import { createMovie } from './mock/movie-mock.js';
 import { buttons, filmsMostCommented, filmsTopRated } from './mock/filter-mock.js';
-import { FILMS_LIST_QUANTITY, FILMS_LIST_EXTRA_QUANTITY, FILM_BLOCK_SIZE } from './const.js';
+import { FILMS_LIST_QUANTITY, FILM_BLOCK_SIZE } from './const.js';
 import { renderElement, RenderPosition } from './utils/utils.js';
 
 const body = document.body;
 const header = document.querySelector('.header');
 const main = document.querySelector('.main');
 const footerStats = document.querySelector('.footer__statistics');
-const films = [];
-
-for (let i = 0; i < FILMS_LIST_QUANTITY; i++) {
-  films.push(createMovie());
-}
+const films = new Array(FILMS_LIST_QUANTITY).fill(null).map(createMovie);
 
 renderElement(header, new UserRank(films).getElement(), RenderPosition.BEFOREEND);
 renderElement(main, new Menu(films).getElement(), RenderPosition.BEFOREEND);
