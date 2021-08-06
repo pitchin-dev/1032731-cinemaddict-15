@@ -25,6 +25,7 @@ export default class SortPanel {
 
     return this._element;
   }
+
   removeElement() {
     this._element = null;
   }
