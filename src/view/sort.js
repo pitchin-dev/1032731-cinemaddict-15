@@ -1,4 +1,4 @@
-import { createElement } from "../utils/utils";
+import { createElement } from '../utils/utils';
 
 const createSortTemplate = ({byDefault, byDate, byRating}) => (
   `<ul class="sort">

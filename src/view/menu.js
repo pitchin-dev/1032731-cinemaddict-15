@@ -1,4 +1,4 @@
-import { createElement } from "../utils/utils";
+import { createElement } from '../utils/utils';
 
 const createMenuTemplate = (movies) => {
   const watchlistCount = movies.filter((item) => item.isInWatchlist).length;

@@ -39,9 +39,9 @@ const renderMovie = (movieList, movie) => {
   };
 
   const onPopupHide = () => {
-    body.removeChild(popupComponent.getElement())
+    body.removeChild(popupComponent.getElement());
     body.classList.remove('hide-overflow');
-  }
+  };
 
   const onEscKeyDown = (e) => {
     if (e.key === 'Escape' || e.key === 'Esc') {

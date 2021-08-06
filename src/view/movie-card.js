@@ -1,4 +1,4 @@
-import { createElement } from "../utils/utils";
+import { createElement } from '../utils/utils';
 
 const createMovieCardTemplate = (movie) => (
   `<article class="film-card">
