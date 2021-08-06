@@ -1,4 +1,4 @@
-import { createElement } from "../utils/utils";
+import { createElement } from '../utils/utils';
 
 const createUserRankTemplate = (movies) => {
   const watchedCount = movies.filter((movie) => movie.isWatched).length;
