@@ -71,19 +71,19 @@ films.slice(0, FILM_BLOCK_SIZE).forEach((film) => renderMovie(filmsListContainer
 
 if (films.length > FILM_BLOCK_SIZE) {
   let filmsCounter = FILM_BLOCK_SIZE;
+  const showMoreButtonComponent = new ShowMore();
 
-  renderElement(filmsList, new ShowMore().getElement(), RenderPosition.BEFOREEND);
+  renderElement(filmsList, showMoreButtonComponent.getElement(), RenderPosition.BEFOREEND);
 
   const showMoreButton = document.querySelector('.films-list__show-more');
 
   showMoreButton.addEventListener('click', () => {
     if (filmsCounter < films.length) {
-      for (let i = filmsCounter; i < filmsCounter + FILM_BLOCK_SIZE; i++) {
-        renderMovie(filmsListContainer, films[i]);
-      }
+      films.slice(filmsCounter, filmsCounter + FILM_BLOCK_SIZE).forEach((film) => renderMovie(filmsListContainer, film));
       filmsCounter += FILM_BLOCK_SIZE;
     } else {
-      showMoreButton.style.display = 'none';
+      showMoreButtonComponent.getElement().remove();
+      showMoreButtonComponent.removeElement();
     }
   });
 }
