@@ -18,9 +18,11 @@ const createCommentTemplate = (comment) => (
 
 const createCommentList = (comments) => {
   const commentList = [];
+
   for (let i = 0; i < comments.length; i++) {
     commentList.push(createCommentTemplate(comments[i]));
   }
+
   return commentList;
 };
 
