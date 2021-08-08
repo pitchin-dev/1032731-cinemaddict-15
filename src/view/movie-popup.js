@@ -17,7 +17,10 @@ const createCommentTemplate = (comment) => (
 );
 
 const createCommentList = (comments) => {
-  const commentList = new Array(comments.length).fill(null).map((_, index) => createCommentTemplate(comments[index]));
+  const commentList = [];
+  for (let i = 0; i < comments.length; i++) {
+    commentList.push(createCommentTemplate(comments[i]));
+  }
   return commentList;
 };
 
