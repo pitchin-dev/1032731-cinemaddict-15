@@ -1,3 +1,5 @@
+import { createElement } from '../utils/utils';
+
 const createUserRankTemplate = (movies) => {
   const watchedCount = movies.filter((movie) => movie.isWatched).length;
   let rank;
@@ -19,4 +21,25 @@ const createUserRankTemplate = (movies) => {
   );
 };
 
-export {createUserRankTemplate};
+export default class UserRank {
+  constructor(movies) {
+    this._movies = movies;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createUserRankTemplate(this._movies);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
