@@ -1,4 +1,4 @@
-import { createElement } from '../utils/utils';
+import AbstractView from './abstract';
 
 const createUserRankTemplate = (movies) => {
   const watchedCount = movies.filter((movie) => movie.isWatched).length;
@@ -21,25 +21,13 @@ const createUserRankTemplate = (movies) => {
   );
 };
 
-export default class UserRank {
+export default class UserRank extends AbstractView {
   constructor(movies) {
+    super();
     this._movies = movies;
-    this._element = null;
   }
 
   getTemplate() {
     return createUserRankTemplate(this._movies);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }
