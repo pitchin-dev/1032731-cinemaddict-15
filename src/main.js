@@ -33,16 +33,6 @@ const renderMovie = (movieList, movie) => {
   const movieComponent = new MovieCard(movie);
   const popupComponent = new MoviePopup(movie);
 
-  movieComponent.setClickHandler(() => {
-    onPopupShow();
-    document.addEventListener('keydown', onEscKeyDown);
-  });
-
-  popupComponent.setClickHandler(() => {
-    onPopupHide();
-    document.removeEventListener('keydown', onEscKeyDown);
-  });
-
   const onPopupShow = () => {
     body.appendChild(popupComponent.getElement());
     body.classList.add('hide-overflow');
@@ -59,6 +49,16 @@ const renderMovie = (movieList, movie) => {
       document.removeEventListener('keydown', onEscKeyDown);
     }
   };
+
+  movieComponent.setClickHandler(() => {
+    onPopupShow();
+    document.addEventListener('keydown', onEscKeyDown);
+  });
+
+  popupComponent.setClickHandler(() => {
+    onPopupHide();
+    document.removeEventListener('keydown', onEscKeyDown);
+  });
 
   renderElement(movieList, movieComponent.getElement(), RenderPosition.BEFOREEND);
 };
