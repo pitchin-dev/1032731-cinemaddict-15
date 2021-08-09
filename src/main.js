@@ -9,7 +9,7 @@ import MoviePopup from './view/movie-popup';
 import { createMovie } from './mock/movie-mock.js';
 import { buttons, filmsMostCommented, filmsTopRated } from './mock/filter-mock.js';
 import { FILMS_LIST_QUANTITY, FILM_BLOCK_SIZE } from './const.js';
-import { renderElement, RenderPosition } from './utils/utils.js';
+import { renderElement, RenderPosition } from './utils/render.js';
 
 const body = document.body;
 const header = document.querySelector('.header');
