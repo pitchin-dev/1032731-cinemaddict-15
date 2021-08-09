@@ -71,9 +71,7 @@ if (films.length > FILM_BLOCK_SIZE) {
 
   renderElement(filmsList, showMoreButtonComponent.getElement(), RenderPosition.BEFOREEND);
 
-  const showMoreButton = document.querySelector('.films-list__show-more');
-
-  showMoreButton.addEventListener('click', () => {
+  showMoreButtonComponent.setClickHandler(() => {
     if (filmsCounter < films.length) {
       films.slice(filmsCounter, filmsCounter + FILM_BLOCK_SIZE).forEach((film) => renderMovie(filmsListContainer, film));
       filmsCounter += FILM_BLOCK_SIZE;
