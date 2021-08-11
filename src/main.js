@@ -9,7 +9,7 @@ import MoviePopup from './view/movie-popup';
 import { createMovie } from './mock/movie-mock.js';
 import { buttons, filmsMostCommented, filmsTopRated } from './mock/filter-mock.js';
 import { FILMS_LIST_QUANTITY, FILM_BLOCK_SIZE } from './const.js';
-import { renderElement, RenderPosition } from './utils/utils.js';
+import { renderElement, RenderPosition } from './utils/render.js';
 
 const body = document.body;
 const header = document.querySelector('.header');
@@ -50,12 +50,12 @@ const renderMovie = (movieList, movie) => {
     }
   };
 
-  movieComponent.getElement().querySelector('.film-card__poster').addEventListener('click', () => {
+  movieComponent.setClickHandler(() => {
     onPopupShow();
     document.addEventListener('keydown', onEscKeyDown);
   });
 
-  popupComponent.getElement().querySelector('.film-details__close-btn').addEventListener('click', () => {
+  popupComponent.setClickHandler(() => {
     onPopupHide();
     document.removeEventListener('keydown', onEscKeyDown);
   });
@@ -71,9 +71,7 @@ if (films.length > FILM_BLOCK_SIZE) {
 
   renderElement(filmsList, showMoreButtonComponent.getElement(), RenderPosition.BEFOREEND);
 
-  const showMoreButton = document.querySelector('.films-list__show-more');
-
-  showMoreButton.addEventListener('click', () => {
+  showMoreButtonComponent.setClickHandler(() => {
     if (filmsCounter < films.length) {
       films.slice(filmsCounter, filmsCounter + FILM_BLOCK_SIZE).forEach((film) => renderMovie(filmsListContainer, film));
       filmsCounter += FILM_BLOCK_SIZE;
