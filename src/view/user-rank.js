@@ -21,7 +21,7 @@ const createUserRankTemplate = (movies) => {
   );
 };
 
-export default class UserRank extends AbstractView {
+export default class UserRankView extends AbstractView {
   constructor(movies) {
     super();
     this._movies = movies;

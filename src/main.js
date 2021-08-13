@@ -1,11 +1,11 @@
-import UserRank from './view/user-rank';
-import Menu from './view/menu';
-import SortPanel from './view/sort';
-import MovieList from './view/movie-list';
-import MovieCard from './view/movie-card';
-import ShowMore from './view/show-more-button';
-import MovieStatistics from './view/movie-stats';
-import MoviePopup from './view/movie-popup';
+import UserRankView from './view/user-rank';
+import MenuView from './view/menu';
+import SortPanelView from './view/sort';
+import MovieListView from './view/movie-list';
+import MovieCardView from './view/movie-card';
+import ShowMoreView from './view/show-more-button';
+import MovieStatisticsView from './view/movie-stats';
+import MoviePopupView from './view/movie-popup';
 import { createMovie } from './mock/movie-mock.js';
 import { buttons, filmsMostCommented, filmsTopRated } from './mock/filter-mock.js';
 import { FILMS_LIST_QUANTITY, FILM_BLOCK_SIZE } from './const.js';
@@ -17,10 +17,10 @@ const main = document.querySelector('.main');
 const footerStats = document.querySelector('.footer__statistics');
 const films = new Array(FILMS_LIST_QUANTITY).fill(null).map(createMovie);
 
-renderElement(header, new UserRank(films).getElement(), RenderPosition.BEFOREEND);
-renderElement(main, new Menu(films).getElement(), RenderPosition.BEFOREEND);
-renderElement(main, new SortPanel(buttons).getElement(), RenderPosition.BEFOREEND);
-renderElement(main, new MovieList().getElement(), RenderPosition.BEFOREEND);
+renderElement(header, new UserRankView(films).getElement(), RenderPosition.BEFOREEND);
+renderElement(main, new MenuView(films).getElement(), RenderPosition.BEFOREEND);
+renderElement(main, new SortPanelView(buttons).getElement(), RenderPosition.BEFOREEND);
+renderElement(main, new MovieListView().getElement(), RenderPosition.BEFOREEND);
 
 const filmsList = document.querySelector('.films-list');
 const filmsListContainer = filmsList.querySelector('.films-list__container');
@@ -30,8 +30,8 @@ const filmsListMostCommentedBlock = document.querySelectorAll('.films-list--extr
 const filmsListMostCommentedContainer = filmsListMostCommentedBlock.querySelector('.films-list__container');
 
 const renderMovie = (movieList, movie) => {
-  const movieComponent = new MovieCard(movie);
-  const popupComponent = new MoviePopup(movie);
+  const movieComponent = new MovieCardView(movie);
+  const popupComponent = new MoviePopupView(movie);
 
   const onPopupShow = () => {
     body.appendChild(popupComponent.getElement());
@@ -67,7 +67,7 @@ films.slice(0, FILM_BLOCK_SIZE).forEach((film) => renderMovie(filmsListContainer
 
 if (films.length > FILM_BLOCK_SIZE) {
   let filmsCounter = FILM_BLOCK_SIZE;
-  const showMoreButtonComponent = new ShowMore();
+  const showMoreButtonComponent = new ShowMoreView();
 
   renderElement(filmsList, showMoreButtonComponent.getElement(), RenderPosition.BEFOREEND);
 

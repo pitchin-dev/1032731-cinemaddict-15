@@ -8,7 +8,7 @@ const createSortTemplate = ({byDefault, byDate, byRating}) => (
   </ul>`
 );
 
-export default class SortPanel extends AbstractView {
+export default class SortPanelView extends AbstractView {
   constructor(buttons) {
     super();
     this._buttons = buttons;

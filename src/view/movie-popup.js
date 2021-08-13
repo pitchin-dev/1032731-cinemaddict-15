@@ -132,7 +132,7 @@ const createPopupTemplate = (movie) => {
 
 export {createPopupTemplate};
 
-export default class MoviePopup extends AbstractView {
+export default class MoviePopupView extends AbstractView {
   constructor(movie) {
     super();
     this._movie = movie;

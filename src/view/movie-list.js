@@ -28,7 +28,7 @@ const createMovieListTemplate = () => (
   </section>`
 );
 
-export default class MovieList extends AbstractView {
+export default class MovieListView extends AbstractView {
   constructor() {
     super();
   }
