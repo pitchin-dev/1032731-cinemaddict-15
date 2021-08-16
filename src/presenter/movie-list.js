@@ -8,28 +8,38 @@ import MovieListBlockExtraView from '../view/movie-list-block-extra';
 import ShowMoreView from '../view/show-more-button';
 import NoMovieList from '../view/movie-list-block-empty';
 import { renderElement, RenderPosition, removeComponent } from '../utils/render';
+import { updateItem } from '../utils/utils';
 import { FILM_BLOCK_SIZE, LIST_TYPES } from '../const';
 
 export default class MovieList {
-  constructor (headerContainer, mainContainer) {
+  constructor (headerContainer, mainContainer, movies, buttons) {
     this._headerContainer = headerContainer;
     this._mainContainer = mainContainer;
-    this._filmsCounter = FILM_BLOCK_SIZE;
-    this._movieListPresenter = new Map();
-
-    this._showMoreMovies = this._showMoreMovies.bind(this);
-  }
-
-  init(movies, buttons) {
-    this._movies = movies;
+    this._movies = movies.slice();
+    this._moviesByDefault = movies.slice();
     this._moviesMostCommented = this._movies.sort((a, b) => b.comments.length - a.comments.length).slice(0, 2);
     this._moviesTopRated = this._movies.sort((a, b) => b.rating - a.rating).slice(0, 2);
     this._buttons = buttons;
 
+    this._filmsCounter = FILM_BLOCK_SIZE;
+    this._movieListPresenter = new Map();
+
+    this._showMoreMovies = this._showMoreMovies.bind(this);
+    this._handleMovieChange = this._handleMovieChange.bind(this);
+  }
+
+  init() {
     this._renderMainElements();
     this._renderMovieList();
     this._renderMovieCards();
     this._showMoreMovies();
+  }
+
+  _handleMovieChange(updatedMovie) {
+    this._movies = updateItem(this._movies, updatedMovie);
+    this._sourcedBoardTasks = updateItem(this._moviesByDefault, updatedMovie);
+    console.log(updatedMovie.isFavorite);
+    this._movieListPresenter.get(updatedMovie.id).init(updatedMovie);
   }
 
   _renderMainElements() {
@@ -58,9 +68,9 @@ export default class MovieList {
   }
 
   _renderMovieCard(container, movie) {
-    this._card = new MovieCard(container);
-    this._card.init(movie);
-    this._movieListPresenter.set(movie.id, this._card);
+    const card = new MovieCard(container, this._handleMovieChange);
+    card.init(movie);
+    this._movieListPresenter.set(movie.id, card);
   }
 
   _renderMovieCards() {
