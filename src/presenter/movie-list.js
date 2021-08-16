@@ -11,7 +11,7 @@ import { renderElement, RenderPosition, removeComponent } from '../utils/render'
 import { FILM_BLOCK_SIZE, LIST_TYPES } from '../const';
 
 export default class MovieList {
-  constructor (headerContainer, mainContainer) {
+  constructor (headerContainer, mainContainer, movies, buttons) {
     this._headerContainer = headerContainer;
     this._mainContainer = mainContainer;
     this._filmsCounter = FILM_BLOCK_SIZE;
@@ -27,6 +27,8 @@ export default class MovieList {
 
     this._renderMainElements();
     this._renderMovieList();
+    this._renderMovieCards();
+    this._showMoreMovies();
   }
 
   _renderMainElements() {
@@ -54,14 +56,15 @@ export default class MovieList {
     renderElement(this._movieListMainComponent, this._movieListBlockMostCommentedComponent, RenderPosition.BEFOREEND);
   }
 
-  _renderMovieCards() {
-    this._movieCardComponent = new MovieCard(this._movieListBlockMainContainer);
-    this._topRatedMovieComponent = new MovieCard(this._movieListBlockTopRatedContainer);
-    this._mostCommentedMovieComponent = new MovieCard(this._movieListBlockMostCommentedContainer);
+  _renderMovieCard(container, movie) {
+    this._card = new MovieCard(container);
+    this._card.init(movie);
+  }
 
-    this._movies.slice(0, FILM_BLOCK_SIZE).forEach((movie) => this._movieCardComponent.init(movie));
-    this._moviesTopRated.forEach((movie) => this._topRatedMovieComponent.init(movie));
-    this._moviesMostCommented.forEach((movie) => this._mostCommentedMovieComponent.init(movie));
+  _renderMovieCards() {
+    this._movies.slice(0, FILM_BLOCK_SIZE).forEach((movie) => this._renderMovieCard(this._movieListBlockMainContainer, movie));
+    this._moviesTopRated.forEach((movie) => this._renderMovieCard(this._movieListBlockTopRatedContainer, movie));
+    this._moviesMostCommented.forEach((movie) => this._renderMovieCard(this._movieListBlockMostCommentedContainer, movie));
   }
 
   _showMoreMovies() {
@@ -94,7 +97,5 @@ export default class MovieList {
 
     this._renderMovieListBlockMain();
     this._renderMovieListBlockExtra();
-    this._renderMovieCards();
-    this._showMoreMovies();
   }
 }
