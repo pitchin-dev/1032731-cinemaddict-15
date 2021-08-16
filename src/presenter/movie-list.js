@@ -11,46 +11,54 @@ import { renderElement, RenderPosition, removeComponent } from '../utils/render'
 import { FILM_BLOCK_SIZE, LIST_TYPES } from '../const';
 
 export default class MovieList {
-  constructor (headerContainer, mainContainer, movies, buttons) {
+  constructor (headerContainer, mainContainer) {
     this._headerContainer = headerContainer;
     this._mainContainer = mainContainer;
+    this._filmsCounter = FILM_BLOCK_SIZE;
 
-    this._movieListMainComponent = new MovieListMainView().getElement();
-    this._movieListBlockMainComponent = new MovieListBlockMainView().getElement();
-    this._movieListBlockTopRatedComponent = new MovieListBlockExtraView(LIST_TYPES.topRated).getElement();
-    this._movieListBlockMostCommentedComponent = new MovieListBlockExtraView(LIST_TYPES.mostCommented).getElement();
-    this._movieListBlockMainContainer = this._movieListBlockMainComponent.querySelector('.films-list__container');
-    this._movieListBlockTopRatedContainer = this._movieListBlockTopRatedComponent.querySelector('.films-list__container');
-    this._movieListBlockMostCommentedContainer = this._movieListBlockMostCommentedComponent.querySelector('.films-list__container');
+    this._showMoreMovies = this._showMoreMovies.bind(this);
+  }
 
-    this._movieCardComponent = new MovieCard(this._movieListBlockMainContainer);
-    this._topRatedMovieComponent = new MovieCard(this._movieListBlockTopRatedContainer);
-    this._mostCommentedMovieComponent = new MovieCard(this._movieListBlockMostCommentedContainer);
-
+  init(movies, buttons) {
     this._movies = movies;
     this._moviesMostCommented = this._movies.slice().sort((a, b) => b.comments.length - a.comments.length).slice(0, 2);
     this._moviesTopRated = this._movies.slice().sort((a, b) => b.rating - a.rating).slice(0, 2);
     this._buttons = buttons;
-    this._filmsCounter = FILM_BLOCK_SIZE;
-    this._showMoreMovies = this._showMoreMovies.bind(this);
-  }
 
-  init() {
-    renderElement(this._headerContainer, new UserRankView(this._movies).getElement(), RenderPosition.BEFOREEND);
-    renderElement(this._mainContainer, new MenuView(this._movies).getElement(), RenderPosition.BEFOREEND);
-    renderElement(this._mainContainer, new SortPanelView(this._buttons).getElement(), RenderPosition.BEFOREEND);
-    renderElement(this._mainContainer, this._movieListMainComponent, RenderPosition.BEFOREEND);
-
+    this._renderMainElements();
     this._renderMovieList();
   }
 
-  _renderMovieListBlock() {
+  _renderMainElements() {
+    renderElement(this._headerContainer, new UserRankView(this._movies).getElement(), RenderPosition.BEFOREEND);
+    renderElement(this._mainContainer, new MenuView(this._movies).getElement(), RenderPosition.BEFOREEND);
+    renderElement(this._mainContainer, new SortPanelView(this._buttons).getElement(), RenderPosition.BEFOREEND);
+  }
+
+  _renderMovieListBlockMain() {
+    this._movieListMainComponent = new MovieListMainView().getElement();
+    this._movieListBlockMainComponent = new MovieListBlockMainView().getElement();
+    this._movieListBlockMainContainer = this._movieListBlockMainComponent.querySelector('.films-list__container');
+
+    renderElement(this._mainContainer, this._movieListMainComponent, RenderPosition.BEFOREEND);
     renderElement(this._movieListMainComponent, this._movieListBlockMainComponent, RenderPosition.BEFOREEND);
+  }
+
+  _renderMovieListBlockExtra() {
+    this._movieListBlockTopRatedComponent = new MovieListBlockExtraView(LIST_TYPES.topRated).getElement();
+    this._movieListBlockMostCommentedComponent = new MovieListBlockExtraView(LIST_TYPES.mostCommented).getElement();
+    this._movieListBlockTopRatedContainer = this._movieListBlockTopRatedComponent.querySelector('.films-list__container');
+    this._movieListBlockMostCommentedContainer = this._movieListBlockMostCommentedComponent.querySelector('.films-list__container');
+
     renderElement(this._movieListMainComponent, this._movieListBlockTopRatedComponent, RenderPosition.BEFOREEND);
     renderElement(this._movieListMainComponent, this._movieListBlockMostCommentedComponent, RenderPosition.BEFOREEND);
   }
 
   _renderMovieCards() {
+    this._movieCardComponent = new MovieCard(this._movieListBlockMainContainer);
+    this._topRatedMovieComponent = new MovieCard(this._movieListBlockTopRatedContainer);
+    this._mostCommentedMovieComponent = new MovieCard(this._movieListBlockMostCommentedContainer);
+
     this._movies.slice(0, FILM_BLOCK_SIZE).forEach((movie) => this._movieCardComponent.init(movie));
     this._moviesTopRated.forEach((movie) => this._topRatedMovieComponent.init(movie));
     this._moviesMostCommented.forEach((movie) => this._mostCommentedMovieComponent.init(movie));
@@ -58,16 +66,16 @@ export default class MovieList {
 
   _showMoreMovies() {
     if (this._movies.length > this._filmsCounter) {
-      const showMoreButtonComponent = new ShowMoreView();
+      this._showMoreButtonComponent = new ShowMoreView();
 
-      renderElement(this._movieListBlockMainComponent, showMoreButtonComponent.getElement(), RenderPosition.BEFOREEND);
+      renderElement(this._movieListBlockMainComponent, this._showMoreButtonComponent.getElement(), RenderPosition.BEFOREEND);
 
-      showMoreButtonComponent.setClickHandler(() => {
+      this._showMoreButtonComponent.setClickHandler(() => {
         if (this._filmsCounter < this._movies.length) {
           this._movies.slice(this._filmsCounter, this._filmsCounter + FILM_BLOCK_SIZE).forEach((movie) => this._movieCardComponent.init(movie));
           this._filmsCounter += FILM_BLOCK_SIZE;
         } else {
-          removeComponent(showMoreButtonComponent);
+          removeComponent(this._showMoreButtonComponent);
         }
       });
     }
@@ -84,7 +92,8 @@ export default class MovieList {
       return false;
     }
 
-    this._renderMovieListBlock();
+    this._renderMovieListBlockMain();
+    this._renderMovieListBlockExtra();
     this._renderMovieCards();
     this._showMoreMovies();
   }
