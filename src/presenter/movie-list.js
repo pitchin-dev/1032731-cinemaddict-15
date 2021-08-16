@@ -29,7 +29,6 @@ export default class MovieList {
     this._renderMainElements();
     this._renderMovieList();
     this._renderMovieCards();
-    console.log(this._movieListPresenter);
     this._showMoreMovies();
   }
 
@@ -80,7 +79,6 @@ export default class MovieList {
         if (this._filmsCounter < this._movies.length) {
           this._movies.slice(this._filmsCounter, this._filmsCounter + FILM_BLOCK_SIZE).forEach((movie) => this._renderMovieCard(this._movieListBlockMainContainer, movie));
           this._filmsCounter += FILM_BLOCK_SIZE;
-          console.log(this._movieListPresenter);
         } else {
           removeComponent(this._showMoreButtonComponent);
         }
