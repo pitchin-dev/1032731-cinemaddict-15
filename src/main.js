@@ -10,5 +10,5 @@ const main = document.querySelector('.main');
 const footerStats = document.querySelector('.footer__statistics');
 const films = new Array(FILMS_LIST_QUANTITY).fill(null).map(createMovie);
 
-new MovieList(header, main, films, buttons).init();
+new MovieList(header, main).init(films, buttons);
 renderElement(footerStats, new MovieStatisticsView(films).getElement(), RenderPosition.BEFOREEND);
