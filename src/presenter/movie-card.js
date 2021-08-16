@@ -1,16 +1,25 @@
 import MovieCardView from '../view/movie-card';
 import MoviePopupView from '../view/movie-popup';
-import { renderElement, RenderPosition } from '../utils/render';
+import { removeComponent, renderElement, RenderPosition, replaceComponent } from '../utils/render';
 
 export default class MovieCard {
-  constructor (movieListContainer) {
+  constructor (movieListContainer, changeData) {
     this._movieListContainer = movieListContainer;
+    this._changeData = changeData;
+
+    this._movieComponent = null;
+
     this._showPopup = this._showPopup.bind(this);
     this._hidePopup = this._hidePopup.bind(this);
     this._handleOnEscKeyDown = this._handleOnEscKeyDown.bind(this);
+    this._handleFavoriteClick = this._handleFavoriteClick.bind(this);
   }
 
   init(movie) {
+    this._movie = movie;
+
+    const prevMovieComponent = this._movieComponent;
+
     this._movieComponent = new MovieCardView(movie);
     this._popupComponent = new MoviePopupView(movie);
     this.body = document.body;
@@ -25,7 +34,15 @@ export default class MovieCard {
       document.removeEventListener('keydown', this._handleOnEscKeyDown);
     });
 
-    renderElement(this._movieListContainer, this._movieComponent.getElement(), RenderPosition.BEFOREEND);
+    this._movieComponent.setStateEditClickHandler(this._handleFavoriteClick);
+
+    if (prevMovieComponent === null) {
+      renderElement(this._movieListContainer, this._movieComponent, RenderPosition.BEFOREEND);
+      return;
+    }
+
+    replaceComponent(this._movieComponent, prevMovieComponent);
+    removeComponent(prevMovieComponent);
   }
 
   _showPopup() {
@@ -43,5 +60,17 @@ export default class MovieCard {
       this._hidePopup();
       document.removeEventListener('keydown', this._handleOnEscKeyDown);
     }
+  }
+
+  _handleFavoriteClick() {
+    this._changeData(
+      Object.assign(
+        {},
+        this._movie,
+        {
+          isFavorite: !this._movie.isFavorite,
+        },
+      ),
+    );
   }
 }
