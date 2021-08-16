@@ -25,6 +25,7 @@ export default class MovieCardView extends AbstractView {
     super();
     this._movie = movie;
     this._clickHandler = this._clickHandler.bind(this);
+    this._stateEditClickHandler = this._stateEditClickHandler.bind(this);
   }
 
   getTemplate() {
@@ -50,8 +51,6 @@ export default class MovieCardView extends AbstractView {
 
   setStateEditClickHandler(callback) {
     this._callback.stateEditClick = callback;
-    this.getElement().querySelector('.film-card__controls-item film-card__controls-item--add-to-watchlist').addEventListener('click', this._stateEditClickHandler);
-    this.getElement().querySelector('.film-card__controls-item film-card__controls-item--mark-as-watched').addEventListener('click', this._stateEditClickHandler);
-    this.getElement().querySelector('.film-card__controls-item film-card__controls-item--favorite').addEventListener('click', this._stateEditClickHandler);
+    this.getElement().querySelector('.film-card__controls-item--favorite').addEventListener('click', this._stateEditClickHandler);
   }
 }
