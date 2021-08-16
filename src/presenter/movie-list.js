@@ -15,19 +15,21 @@ export default class MovieList {
     this._headerContainer = headerContainer;
     this._mainContainer = mainContainer;
     this._filmsCounter = FILM_BLOCK_SIZE;
+    this._movieListPresenter = new Map();
 
     this._showMoreMovies = this._showMoreMovies.bind(this);
   }
 
   init(movies, buttons) {
     this._movies = movies;
-    this._moviesMostCommented = this._movies.slice().sort((a, b) => b.comments.length - a.comments.length).slice(0, 2);
-    this._moviesTopRated = this._movies.slice().sort((a, b) => b.rating - a.rating).slice(0, 2);
+    this._moviesMostCommented = this._movies.sort((a, b) => b.comments.length - a.comments.length).slice(0, 2);
+    this._moviesTopRated = this._movies.sort((a, b) => b.rating - a.rating).slice(0, 2);
     this._buttons = buttons;
 
     this._renderMainElements();
     this._renderMovieList();
     this._renderMovieCards();
+    console.log(this._movieListPresenter);
     this._showMoreMovies();
   }
 
@@ -59,6 +61,7 @@ export default class MovieList {
   _renderMovieCard(container, movie) {
     this._card = new MovieCard(container);
     this._card.init(movie);
+    this._movieListPresenter.set(movie.id, this._card);
   }
 
   _renderMovieCards() {
@@ -77,6 +80,7 @@ export default class MovieList {
         if (this._filmsCounter < this._movies.length) {
           this._movies.slice(this._filmsCounter, this._filmsCounter + FILM_BLOCK_SIZE).forEach((movie) => this._renderMovieCard(this._movieListBlockMainContainer, movie));
           this._filmsCounter += FILM_BLOCK_SIZE;
+          console.log(this._movieListPresenter);
         } else {
           removeComponent(this._showMoreButtonComponent);
         }
