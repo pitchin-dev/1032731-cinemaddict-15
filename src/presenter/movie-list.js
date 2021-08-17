@@ -43,6 +43,12 @@ export default class MovieList {
     this._movieListBlockMainContainer = this._movieListBlockMainComponent.querySelector('.films-list__container');
 
     renderElement(this._mainContainer, this._movieListMainComponent, RenderPosition.BEFOREEND);
+
+    if (!this._movies.length) {
+      this._renderNoMovieList();
+      return;
+    }
+
     renderElement(this._movieListMainComponent, this._movieListBlockMainComponent, RenderPosition.BEFOREEND);
   }
 
