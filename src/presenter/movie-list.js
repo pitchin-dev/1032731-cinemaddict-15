@@ -98,11 +98,6 @@ export default class MovieList {
   }
 
   _renderMovieList() {
-    if (!this._movies.length) {
-      this._renderNoMovieList();
-      return false;
-    }
-
     this._renderMovieListBlockMain();
     this._renderMovieListBlockExtra();
   }
