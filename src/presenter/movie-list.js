@@ -17,8 +17,8 @@ export default class MovieList {
     this._mainContainer = mainContainer;
     this._movies = movies.slice();
     this._moviesByDefault = movies.slice();
-    this._moviesMostCommented = this._movies.slice().sort((a, b) => b.comments.length - a.comments.length).slice(0, 2);
-    this._moviesTopRated = this._movies.slice().sort((a, b) => b.rating - a.rating).slice(0, 2);
+    this._moviesMostCommented = this._movies.sort((a, b) => b.comments.length - a.comments.length).slice(0, 2);
+    this._moviesTopRated = this._movies.sort((a, b) => b.rating - a.rating).slice(0, 2);
     this._buttons = buttons;
 
     this._filmsCounter = FILM_BLOCK_SIZE;
