@@ -38,7 +38,6 @@ export default class MovieList {
   _handleMovieChange(updatedMovie) {
     this._movies = updateItem(this._movies, updatedMovie);
     this._sourcedBoardTasks = updateItem(this._moviesByDefault, updatedMovie);
-    console.log(updatedMovie.isFavorite);
     this._movieListPresenter.get(updatedMovie.id).init(updatedMovie);
   }
 
