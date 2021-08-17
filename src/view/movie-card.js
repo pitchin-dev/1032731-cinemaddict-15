@@ -25,7 +25,9 @@ export default class MovieCardView extends AbstractView {
     super();
     this._movie = movie;
     this._clickHandler = this._clickHandler.bind(this);
-    this._stateEditClickHandler = this._stateEditClickHandler.bind(this);
+    this._favoriteEditClickHandler = this._favoriteEditClickHandler.bind(this);
+    this._watchedEditClickHandler = this._watchedEditClickHandler.bind(this);
+    this._watchlistEditClickHandler = this._watchlistEditClickHandler.bind(this);
   }
 
   getTemplate() {
@@ -37,9 +39,19 @@ export default class MovieCardView extends AbstractView {
     this._callback.click();
   }
 
-  _stateEditClickHandler(e) {
+  _favoriteEditClickHandler(e) {
     e.preventDefault();
-    this._callback.stateEditClick();
+    this._callback.favoriteEditClick();
+  }
+
+  _watchedEditClickHandler(e) {
+    e.preventDefault();
+    this._callback.watchedEditClick();
+  }
+
+  _watchlistEditClickHandler(e) {
+    e.preventDefault();
+    this._callback.watchlistEditClick();
   }
 
   setClickHandler(callback) {
@@ -49,8 +61,18 @@ export default class MovieCardView extends AbstractView {
     this.getElement().querySelector('.film-card__comments').addEventListener('click', this._clickHandler);
   }
 
-  setStateEditClickHandler(callback) {
-    this._callback.stateEditClick = callback;
-    this.getElement().querySelector('.film-card__controls-item--favorite').addEventListener('click', this._stateEditClickHandler);
+  setFavoriteEditClickHandler(callback) {
+    this._callback.favoriteEditClick = callback;
+    this.getElement().querySelector('.film-card__controls-item--favorite').addEventListener('click', this._favoriteEditClickHandler);
+  }
+
+  setWatchedEditClickHandler(callback) {
+    this._callback.watchedEditClick = callback;
+    this.getElement().querySelector('.film-card__controls-item--mark-as-watched').addEventListener('click', this._watchedEditClickHandler);
+  }
+
+  setWatchlistEditClickHandler(callback) {
+    this._callback.watchlistEditClick = callback;
+    this.getElement().querySelector('.film-card__controls-item--add-to-watchlist').addEventListener('click', this._watchlistEditClickHandler);
   }
 }
