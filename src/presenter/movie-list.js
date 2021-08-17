@@ -54,6 +54,12 @@ export default class MovieList {
     this._movieListBlockMainContainer = this._movieListBlockMainComponent.querySelector('.films-list__container');
 
     renderElement(this._mainContainer, this._movieListMainComponent, RenderPosition.BEFOREEND);
+
+    if (!this._movies.length) {
+      this._renderNoMovieList();
+      return;
+    }
+
     renderElement(this._movieListMainComponent, this._movieListBlockMainComponent, RenderPosition.BEFOREEND);
   }
 
@@ -63,8 +69,10 @@ export default class MovieList {
     this._movieListBlockTopRatedContainer = this._movieListBlockTopRatedComponent.querySelector('.films-list__container');
     this._movieListBlockMostCommentedContainer = this._movieListBlockMostCommentedComponent.querySelector('.films-list__container');
 
-    renderElement(this._movieListMainComponent, this._movieListBlockTopRatedComponent, RenderPosition.BEFOREEND);
-    renderElement(this._movieListMainComponent, this._movieListBlockMostCommentedComponent, RenderPosition.BEFOREEND);
+    if(this._movies.length) {
+      renderElement(this._movieListMainComponent, this._movieListBlockTopRatedComponent, RenderPosition.BEFOREEND);
+      renderElement(this._movieListMainComponent, this._movieListBlockMostCommentedComponent, RenderPosition.BEFOREEND);
+    }
   }
 
   _renderMovieCard(container, movie) {
@@ -102,11 +110,6 @@ export default class MovieList {
   }
 
   _renderMovieList() {
-    if (!this._movies.length) {
-      this._renderNoMovieList();
-      return false;
-    }
-
     this._renderMovieListBlockMain();
     this._renderMovieListBlockExtra();
   }
