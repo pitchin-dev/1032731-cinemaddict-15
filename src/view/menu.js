@@ -17,7 +17,7 @@ const createMenuTemplate = (movies) => {
   );
 };
 
-export default class Menu extends AbstractView {
+export default class MenuView extends AbstractView {
   constructor(movies) {
     super();
     this._movies = movies;

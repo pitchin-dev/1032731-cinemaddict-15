@@ -132,7 +132,7 @@ const createPopupTemplate = (movie) => {
 
 export {createPopupTemplate};
 
-export default class MoviePopup extends AbstractView {
+export default class MoviePopupView extends AbstractView {
   constructor(movie) {
     super();
     this._movie = movie;
@@ -150,6 +150,6 @@ export default class MoviePopup extends AbstractView {
 
   setClickHandler(callback) {
     this._callback.click = callback;
-    this.getElement().addEventListener('click', this._clickHandler);
+    this.getElement().querySelector('.film-details__close-btn').addEventListener('click', this._clickHandler);
   }
 }

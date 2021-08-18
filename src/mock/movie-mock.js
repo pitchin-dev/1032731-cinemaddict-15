@@ -1,3 +1,4 @@
+import {nanoid} from 'nanoid';
 import dayjs from 'dayjs';
 import { getRandomFloat, getRandomInteger } from '../utils/utils.js';
 import { STAFF_MIN, STAFF_MAX, TEXT_MIN, TEXT_MAX, YEARS_RANGE, POSTERS, VERB, NOUN, NAMES, SURNAMES, GENRES, COUNTRIES, AGE_LIMITATIONS, DESCRIPTIONS, EMOTIONS } from '../const.js';
@@ -46,6 +47,7 @@ const createMovie = () => {
   };
 
   return {
+    id: nanoid(),
     title: createTitle(),
     originalTitle: createTitle(),
     poster: POSTERS[getRandomInteger(0, POSTERS.length - 1)],

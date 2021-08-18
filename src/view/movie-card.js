@@ -1,7 +1,7 @@
 import AbstractView from './abstract';
 
 const createMovieCardTemplate = (movie) => (
-  `<article class="film-card">
+  `<article class="film-card" data-id=${movie.id}>
     <h3 class="film-card__title">${movie.title}</h3>
     <p class="film-card__rating">${movie.rating}</p>
     <p class="film-card__info">
@@ -20,7 +20,7 @@ const createMovieCardTemplate = (movie) => (
   </article>`
 );
 
-export default class MovieCard extends AbstractView {
+export default class MovieCardView extends AbstractView {
   constructor(movie) {
     super();
     this._movie = movie;
@@ -36,8 +36,22 @@ export default class MovieCard extends AbstractView {
     this._callback.click();
   }
 
+  // _stateEditClickHandler(e) {
+  //   e.preventDefault();
+  //   this._callback.stateEditClick();
+  // }
+
   setClickHandler(callback) {
     this._callback.click = callback;
-    this.getElement().addEventListener('click', this._clickHandler);
+    this.getElement().querySelector('.film-card__poster').addEventListener('click', this._clickHandler);
+    this.getElement().querySelector('.film-card__title').addEventListener('click', this._clickHandler);
+    this.getElement().querySelector('.film-card__comments').addEventListener('click', this._clickHandler);
   }
+
+  // setStateEditClickHandler(callback) {
+  //   this._callback.stateEditClick = callback;
+  //   this.getElement().querySelector('.film-card__controls-item film-card__controls-item--add-to-watchlist').addEventListener('click', this._stateEditClickHandler);
+  //   this.getElement().querySelector('.film-card__controls-item film-card__controls-item--mark-as-watched').addEventListener('click', this._stateEditClickHandler);
+  //   this.getElement().querySelector('.film-card__controls-item film-card__controls-item--favorite').addEventListener('click', this._stateEditClickHandler);
+  // }
 }

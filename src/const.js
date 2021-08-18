@@ -6,6 +6,10 @@ const YEARS_RANGE = 100;
 
 const FILMS_LIST_QUANTITY = 20;
 const FILM_BLOCK_SIZE = 5;
+const LIST_TYPES = {
+  topRated: 'Top rated',
+  mostCommented: 'Most commented',
+};
 
 const POSTERS = [
   './images/posters/made-for-each-other.png',
@@ -47,6 +51,7 @@ export {
   YEARS_RANGE,
   FILMS_LIST_QUANTITY,
   FILM_BLOCK_SIZE,
+  LIST_TYPES,
   POSTERS,
   VERB,
   NOUN,

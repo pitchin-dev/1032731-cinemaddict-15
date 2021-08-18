@@ -8,7 +8,7 @@ const createMovieStatsTemplate = (movies) => (
 
 export {createMovieStatsTemplate};
 
-export default class MovieStatistics extends AbstractView {
+export default class MovieStatisticsView extends AbstractView {
   constructor(movies) {
     super();
     this._movies = movies;
