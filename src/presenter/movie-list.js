@@ -6,7 +6,7 @@ import MovieListMainView from '../view/movie-list-main';
 import MovieListBlockMainView from '../view/movie-list-block-main';
 import MovieListBlockExtraView from '../view/movie-list-block-extra';
 import ShowMoreView from '../view/show-more-button';
-import NoMovieList from '../view/movie-list-block-empty';
+import EmptyMovieList from '../view/movie-list-block-empty';
 import { renderElement, RenderPosition, removeComponent } from '../utils/render';
 import { updateItem } from '../utils/utils';
 import { FILM_BLOCK_SIZE, LIST_TYPES } from '../const';
@@ -69,7 +69,7 @@ export default class MovieList {
     renderElement(this._mainContainer, this._movieListMainComponent, RenderPosition.BEFOREEND);
 
     if (!this._movies.length) {
-      this._renderNoMovieList();
+      this._renderEmptyMovieList();
       return;
     }
 
@@ -132,9 +132,9 @@ export default class MovieList {
     }
   }
 
-  _renderNoMovieList() {
-    this._noMovieList = new NoMovieList('ALL').getElement();
-    renderElement(this._movieListMainComponent, this._noMovieList, RenderPosition.AFTERBEGIN);
+  _renderEmptyMovieList() {
+    this._emptyMovieList = new EmptyMovieList('ALL').getElement();
+    renderElement(this._movieListMainComponent, this._emptyMovieList, RenderPosition.AFTERBEGIN);
   }
 
   _renderMovieList() {
