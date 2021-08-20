@@ -123,7 +123,7 @@ export default class MovieList {
 
       this._showMoreButtonComponent.setClickHandler(() => {
         if (this._filmsCounter < this._movies.length) {
-          this._movies.slice(this._filmsCounter, this._filmsCounter + FILM_BLOCK_SIZE).forEach((movie) => this._renderMovieCard(this._movieListBlockMainContainer, movie));
+          this._movies.slice(this._filmsCounter, this._filmsCounter + FILM_BLOCK_SIZE).forEach((movie) => this._renderMovieCardMain(this._movieListBlockMainContainer, movie));
           this._filmsCounter += FILM_BLOCK_SIZE;
         } else {
           removeComponent(this._showMoreButtonComponent);
