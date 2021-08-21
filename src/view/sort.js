@@ -20,6 +20,12 @@ export default class SortPanelView extends AbstractView {
     return createSortTemplate(this._buttons);
   }
 
+  _setActiveClass(target) {
+    const buttons = this.getElement().querySelectorAll('.sort__button');
+    buttons.forEach((button) => button.classList.remove('sort__button--active'));
+    target.classList.add('sort__button--active');
+  }
+
   _sortTypeChangeHandler(e) {
     if (e.target.tagName !== 'A') {
       return;
@@ -27,6 +33,7 @@ export default class SortPanelView extends AbstractView {
 
     e.preventDefault();
     this._callback.sortTypeChange(e.target.dataset.sortType);
+    this._setActiveClass(e.target);
   }
 
   setSortTypeChangeHandler(callback) {
