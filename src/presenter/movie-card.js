@@ -63,6 +63,11 @@ export default class MovieCard {
     removeComponent(prevMovieComponent);
   }
 
+  destroy() {
+    removeComponent(this._movieComponent);
+    removeComponent(this._popupComponent);
+  }
+
   _showPopup() {
     if (document.querySelector('.film-details')) {
       document.querySelector('.film-details').remove();
