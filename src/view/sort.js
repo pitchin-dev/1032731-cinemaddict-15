@@ -3,7 +3,7 @@ import { SORT_TYPES } from '../const';
 
 const createSortTemplate = ({byDefault, byDate, byRating}) => (
   `<ul class="sort">
-    <li><a href="#" class="sort__button sort__button--active" data-sort-type=${SORT_TYPES.DEFAULT}>${byDefault}</a></li>
+    <li><a href="#" class="sort__button" data-sort-type=${SORT_TYPES.DEFAULT}>${byDefault}</a></li>
     <li><a href="#" class="sort__button" data-sort-type=${SORT_TYPES.DATE}>${byDate}</a></li>
     <li><a href="#" class="sort__button" data-sort-type=${SORT_TYPES.RATING}>${byRating}</a></li>
   </ul>`
