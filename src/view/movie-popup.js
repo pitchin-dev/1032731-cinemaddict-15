@@ -1,4 +1,4 @@
-import AbstractView from './abstract';
+import SmartView from './smart';
 
 const createCommentTemplate = (comment) => (
   `<li class="film-details__comment">
@@ -132,7 +132,7 @@ const createPopupTemplate = (movie) => {
 
 export {createPopupTemplate};
 
-export default class MoviePopupView extends AbstractView {
+export default class MoviePopupView extends SmartView {
   constructor(movie) {
     super();
     this._movie = movie;
@@ -144,6 +144,10 @@ export default class MoviePopupView extends AbstractView {
 
   getTemplate() {
     return createPopupTemplate(this._movie);
+  }
+
+  restoreHandlers() {
+    return;
   }
 
   _clickHandler(e) {
