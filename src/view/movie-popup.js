@@ -151,18 +151,18 @@ export default class MoviePopupView extends AbstractView {
     this._callback.click();
   }
 
-  _historyClickHandler(evt) {
-    evt.preventDefault();
+  _historyClickHandler(e) {
+    e.preventDefault();
     this._callback.historyClick();
   }
 
-  _favoriteClickHandler(evt) {
-    evt.preventDefault();
+  _favoriteClickHandler(e) {
+    e.preventDefault();
     this._callback.favoriteClick();
   }
 
-  _watchlistClickHandler(evt) {
-    evt.preventDefault();
+  _watchlistClickHandler(e) {
+    e.preventDefault();
     this._callback.watchlistClick();
   }
 
