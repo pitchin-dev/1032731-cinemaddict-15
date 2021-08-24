@@ -23,7 +23,7 @@ const createMovie = () => {
   const createDuration = (minutes) => {
     const getHours = parseInt(minutes / 60, 10);
     const getMinutes = minutes - (getHours * 60);
-    return `${dayjs.duration({hours: getHours}).format('HH')}h ${dayjs.duration({minutes: getMinutes}).format('mm')}m`;
+    return `${dayjs.duration({hours: getHours}).format('H')}h ${dayjs.duration({minutes: getMinutes}).format('mm')}m`;
   };
 
   const releaseDate = datesArr[getRandomInteger(0, datesArr.length - 1)];
