@@ -6,29 +6,53 @@ import MovieListMainView from '../view/movie-list-main';
 import MovieListBlockMainView from '../view/movie-list-block-main';
 import MovieListBlockExtraView from '../view/movie-list-block-extra';
 import ShowMoreView from '../view/show-more-button';
-import NoMovieList from '../view/movie-list-block-empty';
+import EmptyMovieList from '../view/movie-list-block-empty';
 import { renderElement, RenderPosition, removeComponent } from '../utils/render';
+import { updateItem } from '../utils/utils';
 import { FILM_BLOCK_SIZE, LIST_TYPES } from '../const';
 
 export default class MovieList {
-  constructor (headerContainer, mainContainer) {
+  constructor (headerContainer, mainContainer, movies, buttons) {
     this._headerContainer = headerContainer;
     this._mainContainer = mainContainer;
-    this._filmsCounter = FILM_BLOCK_SIZE;
-
-    this._showMoreMovies = this._showMoreMovies.bind(this);
-  }
-
-  init(movies, buttons) {
-    this._movies = movies;
-    this._moviesMostCommented = this._movies.slice().sort((a, b) => b.comments.length - a.comments.length).slice(0, 2);
-    this._moviesTopRated = this._movies.slice().sort((a, b) => b.rating - a.rating).slice(0, 2);
+    this._movies = movies.slice();
+    this._moviesByDefault = movies.slice();
     this._buttons = buttons;
 
+    this._filmsCounter = FILM_BLOCK_SIZE;
+    this._movieListPresenterMain = new Map();
+    this._movieListPresenterRated = new Map();
+    this._movieListPresenterCommented = new Map();
+
+    this._showMoreMovies = this._showMoreMovies.bind(this);
+    this._handleMainMovieChange = this._handleMainMovieChange.bind(this);
+    this._handleRatedMovieChange = this._handleRatedMovieChange.bind(this);
+    this._handleCommentedMovieChange = this._handleCommentedMovieChange.bind(this);
+  }
+
+  init() {
     this._renderMainElements();
     this._renderMovieList();
     this._renderMovieCards();
     this._showMoreMovies();
+  }
+
+  _handleMainMovieChange(updatedMovie) {
+    this._movies = updateItem(this._movies, updatedMovie);
+    this._sourcedBoardTasks = updateItem(this._moviesByDefault, updatedMovie);
+    this._movieListPresenterMain.get(updatedMovie.id).init(updatedMovie);
+  }
+
+  _handleRatedMovieChange(updatedMovie) {
+    this._movies = updateItem(this._movies, updatedMovie);
+    this._sourcedBoardTasks = updateItem(this._moviesByDefault, updatedMovie);
+    this._movieListPresenterRated.get(updatedMovie.id).init(updatedMovie);
+  }
+
+  _handleCommentedMovieChange(updatedMovie) {
+    this._movies = updateItem(this._movies, updatedMovie);
+    this._sourcedBoardTasks = updateItem(this._moviesByDefault, updatedMovie);
+    this._movieListPresenterCommented.get(updatedMovie.id).init(updatedMovie);
   }
 
   _renderMainElements() {
@@ -45,7 +69,7 @@ export default class MovieList {
     renderElement(this._mainContainer, this._movieListMainComponent, RenderPosition.BEFOREEND);
 
     if (!this._movies.length) {
-      this._renderNoMovieList();
+      this._renderEmptyMovieList();
       return;
     }
 
@@ -64,15 +88,31 @@ export default class MovieList {
     }
   }
 
-  _renderMovieCard(container, movie) {
-    this._card = new MovieCard(container);
-    this._card.init(movie);
+  _renderMovieCardMain(container, movie) {
+    const card = new MovieCard(container, this._handleMainMovieChange);
+    this._movieListPresenterMain.set(movie.id, card);
+    card.init(movie);
+  }
+
+  _renderMovieCardRated(container, movie) {
+    const card = new MovieCard(container, this._handleRatedMovieChange);
+    this._movieListPresenterRated.set(movie.id, card);
+    card.init(movie);
+  }
+
+  _renderMovieCardCommented(container, movie) {
+    const card = new MovieCard(container, this._handleCommentedMovieChange);
+    this._movieListPresenterCommented.set(movie.id, card);
+    card.init(movie);
   }
 
   _renderMovieCards() {
-    this._movies.slice(0, FILM_BLOCK_SIZE).forEach((movie) => this._renderMovieCard(this._movieListBlockMainContainer, movie));
-    this._moviesTopRated.forEach((movie) => this._renderMovieCard(this._movieListBlockTopRatedContainer, movie));
-    this._moviesMostCommented.forEach((movie) => this._renderMovieCard(this._movieListBlockMostCommentedContainer, movie));
+    this._moviesMostCommented = this._movies.sort((a, b) => b.comments.length - a.comments.length).slice(0, 2);
+    this._moviesTopRated = this._movies.sort((a, b) => b.rating - a.rating).slice(0, 2);
+
+    this._movies.slice(0, FILM_BLOCK_SIZE).forEach((movie) => this._renderMovieCardMain(this._movieListBlockMainContainer, movie));
+    this._moviesTopRated.forEach((movie) => this._renderMovieCardRated(this._movieListBlockTopRatedContainer, movie));
+    this._moviesMostCommented.forEach((movie) => this._renderMovieCardCommented(this._movieListBlockMostCommentedContainer, movie));
   }
 
   _showMoreMovies() {
@@ -83,7 +123,7 @@ export default class MovieList {
 
       this._showMoreButtonComponent.setClickHandler(() => {
         if (this._filmsCounter < this._movies.length) {
-          this._movies.slice(this._filmsCounter, this._filmsCounter + FILM_BLOCK_SIZE).forEach((movie) => this._renderMovieCard(this._movieListBlockMainContainer, movie));
+          this._movies.slice(this._filmsCounter, this._filmsCounter + FILM_BLOCK_SIZE).forEach((movie) => this._renderMovieCardMain(this._movieListBlockMainContainer, movie));
           this._filmsCounter += FILM_BLOCK_SIZE;
         } else {
           removeComponent(this._showMoreButtonComponent);
@@ -92,9 +132,9 @@ export default class MovieList {
     }
   }
 
-  _renderNoMovieList() {
-    this._noMovieList = new NoMovieList('ALL').getElement();
-    renderElement(this._movieListMainComponent, this._noMovieList, RenderPosition.AFTERBEGIN);
+  _renderEmptyMovieList() {
+    this._emptyMovieList = new EmptyMovieList('ALL').getElement();
+    renderElement(this._movieListMainComponent, this._emptyMovieList, RenderPosition.AFTERBEGIN);
   }
 
   _renderMovieList() {
