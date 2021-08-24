@@ -9,7 +9,7 @@ const EmptyMessage = {
 
 const createNoMovieList = (filter) => (`<h2 class="films-list__title">${EmptyMessage[filter]}</h2>`);
 
-export default class NoMovieList extends AbstractView{
+export default class EmptyMovieList extends AbstractView{
   constructor(filter) {
     super();
     this._filter = filter;
