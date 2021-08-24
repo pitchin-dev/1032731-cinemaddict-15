@@ -12,7 +12,7 @@ import { updateItem } from '../utils/utils';
 import { FILM_BLOCK_SIZE, LIST_TYPES } from '../const';
 
 export default class MovieList {
-  constructor (headerContainer, mainContainer, movies, buttons) {
+  constructor (headerContainer, mainContainer) {
     this._headerContainer = headerContainer;
     this._mainContainer = mainContainer;
     this._movies = movies.slice();
