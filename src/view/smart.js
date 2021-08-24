@@ -6,7 +6,7 @@ export default class SmartView extends AbstractView {
     this._data = {};
   }
 
-  restoreHandlers() {
+  _restoreHandlers() {
     throw new Error('Cannot initialize this method by the abstract class: restoreHandlers');
   }
 
@@ -18,7 +18,7 @@ export default class SmartView extends AbstractView {
     const newElement = this.getElement();
     parent.replaceChild(newElement, prevElement);
 
-    this.restoreHandlers();
+    this._restoreHandlers();
   }
 
   updateData(update, noRerender) {
@@ -36,6 +36,6 @@ export default class SmartView extends AbstractView {
       return;
     }
 
-    this.restoreHandlers();
+    this.updateElement();
   }
 }

@@ -51,16 +51,11 @@ export default class MovieCard {
       return;
     }
 
-    if (this._movieListContainer.contains(prevMovieComponent.getElement())) {
-      replaceComponent(this._movieComponent, prevMovieComponent);
-    }
-
-
-    if (document.body.contains(prevPopupComponent.getElement())) {
-      replaceComponent(this._popupComponent, prevPopupComponent);
-    }
+    replaceComponent(this._movieComponent, prevMovieComponent);
+    replaceComponent(this._popupComponent, prevPopupComponent);
 
     removeComponent(prevMovieComponent);
+    removeComponent(prevPopupComponent);
   }
 
   destroy() {
@@ -68,17 +63,21 @@ export default class MovieCard {
     removeComponent(this._popupComponent);
   }
 
-  _showPopup() {
-    if (document.querySelector('.film-details')) {
-      document.querySelector('.film-details').remove();
+  _hidePopup() {
+    const popup = document.querySelector('.film-details');
+    if (popup) {
+      popup.remove();
+      document.body.classList.remove('hide-overflow');
+      document.removeEventListener('keydown', this._handleOnEscKeyDown);
     }
-    this.body.appendChild(this._popupComponent.getElement());
-    this.body.classList.add('hide-overflow');
   }
 
-  _hidePopup() {
-    this.body.removeChild(this._popupComponent.getElement());
-    this.body.classList.remove('hide-overflow');
+  _showPopup() {
+    this._hidePopup();
+    document.addEventListener('keydown', this._handleOnEscKeyDown);
+    document.body.classList.add('hide-overflow');
+    renderElement(document.body, this._popupComponent, RenderPosition.BEFOREEND);
+    this._popupComponent.reset(this._movie);
   }
 
   _handleOnEscKeyDown(e) {
