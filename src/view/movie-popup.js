@@ -101,7 +101,7 @@ const createPopupTemplate = (state) => {
           <section class="film-details__comments-wrap">
             <h3 class="film-details__comments-title ${state.hasComments ? '' : 'visually-hidden'}">Comments <span class="film-details__comments-count">${state.comments.length}</span></h3>
             <ul class="film-details__comments-list">
-              ${createCommentList(state.comments).join(' ')}
+              ${state.hasComments ? createCommentList(state.comments).join(' ') : ''}
             </ul>
             <div class="film-details__new-comment">
               <div class="film-details__add-emoji-label">${state.addedEmoji ? setEmoji(state.addedEmoji) : ''}</div>
