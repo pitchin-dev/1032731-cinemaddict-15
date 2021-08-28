@@ -10,6 +10,7 @@ import EmptyMovieList from '../view/movie-list-block-empty';
 import { renderElement, RenderPosition, removeComponent } from '../utils/render';
 import { updateItem } from '../utils/utils';
 import { FILM_BLOCK_SIZE, LIST_TYPES, SORT_TYPES } from '../const';
+import MovieStatisticsView from '../view/movie-stats';
 
 export default class MovieList {
   constructor (headerContainer, mainContainer, movies, buttons) {
@@ -42,6 +43,7 @@ export default class MovieList {
     this._renderMovieCardsMain();
     this._renderMovieCardsExtra();
     this._showMoreMovies();
+    this._renderFooterStatistics();
   }
 
   _handleMainMovieChange(updatedMovie) {
@@ -175,6 +177,11 @@ export default class MovieList {
         }
       });
     }
+  }
+
+  _renderFooterStatistics() {
+    const footerStats = document.querySelector('.footer__statistics');
+    renderElement(footerStats, new MovieStatisticsView(this._movies).getElement(), RenderPosition.BEFOREEND);
   }
 
   _renderEmptyMovieList() {
