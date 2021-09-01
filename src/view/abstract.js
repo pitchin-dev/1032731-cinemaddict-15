@@ -3,7 +3,7 @@ import { createElement } from '../utils/render';
 export default class AbstractView {
   constructor () {
     if (new.target === AbstractView) {
-      throw new Error('Can\'t instantiate Abstract, only concrete one.');
+      throw new Error('Can\'t instantiate AbstractView, only concrete one.');
     }
 
     this._element = null;
@@ -11,7 +11,7 @@ export default class AbstractView {
   }
 
   getTemplate() {
-    throw new Error('Cannot initialize this method by the abstract class');
+    throw new Error('Cannot initialize this method by the abstract class: getTemplate');
   }
 
   getElement() {
