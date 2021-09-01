@@ -9,7 +9,7 @@ import ShowMoreView from '../view/show-more-button';
 import EmptyMovieList from '../view/movie-list-block-empty';
 import { renderElement, RenderPosition, removeComponent } from '../utils/render';
 import { updateItem } from '../utils/utils';
-import { FILM_BLOCK_SIZE, LIST_TYPES, SORT_TYPES } from '../const';
+import { FILM_BLOCK_SIZE, EXTRA_BLOCK_SIZE, LIST_TYPES, SORT_TYPES } from '../const';
 
 export default class MovieList {
   constructor (headerContainer, mainContainer, movies, buttons) {
@@ -148,8 +148,8 @@ export default class MovieList {
   }
 
   _renderMovieCardsExtra() {
-    this._moviesMostCommented = this._movies.sort((a, b) => b.comments.length - a.comments.length).slice(0, 2);
-    this._moviesTopRated = this._movies.sort((a, b) => b.rating - a.rating).slice(0, 2);
+    this._moviesMostCommented = this._movies.sort((a, b) => b.comments.length - a.comments.length).slice(0, EXTRA_BLOCK_SIZE);
+    this._moviesTopRated = this._movies.sort((a, b) => b.rating - a.rating).slice(0, EXTRA_BLOCK_SIZE);
 
     this._moviesTopRated.forEach((movie) => this._renderMovieCardRated(this._movieListBlockTopRatedContainer, movie));
     this._moviesMostCommented.forEach((movie) => this._renderMovieCardCommented(this._movieListBlockMostCommentedContainer, movie));
