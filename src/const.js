@@ -6,6 +6,7 @@ const YEARS_RANGE = 100;
 
 const FILMS_LIST_QUANTITY = 20;
 const FILM_BLOCK_SIZE = 5;
+const EXTRA_BLOCK_SIZE = 2;
 
 const LIST_TYPES = {
   topRated: 'Top rated',
@@ -58,6 +59,7 @@ export {
   YEARS_RANGE,
   FILMS_LIST_QUANTITY,
   FILM_BLOCK_SIZE,
+  EXTRA_BLOCK_SIZE,
   LIST_TYPES,
   SORT_TYPES,
   POSTERS,
