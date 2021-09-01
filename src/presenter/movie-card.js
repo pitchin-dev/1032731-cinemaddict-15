@@ -46,34 +46,38 @@ export default class MovieCard {
     this._popupComponent.setFavoriteClickHandler(this._handleFavoriteClick);
     this._popupComponent.setWatchlistClickHandler(this._handleWatchlistClick);
 
-    if (prevMovieComponent === null) {
+    if (prevMovieComponent === null || prevPopupComponent === null) {
       renderElement(this._movieListContainer, this._movieComponent, RenderPosition.BEFOREEND);
       return;
     }
 
-    if (this._movieListContainer.contains(prevMovieComponent.getElement())) {
-      replaceComponent(this._movieComponent, prevMovieComponent);
-    }
-
-
-    if (document.body.contains(prevPopupComponent.getElement())) {
-      replaceComponent(this._popupComponent, prevPopupComponent);
-    }
+    replaceComponent(this._movieComponent, prevMovieComponent);
+    replaceComponent(this._popupComponent, prevPopupComponent);
 
     removeComponent(prevMovieComponent);
+    removeComponent(prevPopupComponent);
   }
 
-  _showPopup() {
-    if (document.querySelector('.film-details')) {
-      document.querySelector('.film-details').remove();
-    }
-    this.body.appendChild(this._popupComponent.getElement());
-    this.body.classList.add('hide-overflow');
+  destroy() {
+    removeComponent(this._movieComponent);
+    removeComponent(this._popupComponent);
   }
 
   _hidePopup() {
-    this.body.removeChild(this._popupComponent.getElement());
-    this.body.classList.remove('hide-overflow');
+    const popup = document.querySelector('.film-details');
+    if (popup) {
+      popup.remove();
+      document.body.classList.remove('hide-overflow');
+      document.removeEventListener('keydown', this._handleOnEscKeyDown);
+    }
+  }
+
+  _showPopup() {
+    this._hidePopup();
+    document.addEventListener('keydown', this._handleOnEscKeyDown);
+    document.body.classList.add('hide-overflow');
+    renderElement(document.body, this._popupComponent, RenderPosition.BEFOREEND);
+    this._popupComponent.reset(this._movie);
   }
 
   _handleOnEscKeyDown(e) {

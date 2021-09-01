@@ -1,8 +1,10 @@
 import {nanoid} from 'nanoid';
 import dayjs from 'dayjs';
+import duration from 'dayjs/plugin/duration';
 import { getRandomFloat, getRandomInteger } from '../utils/utils.js';
 import { STAFF_MIN, STAFF_MAX, TEXT_MIN, TEXT_MAX, YEARS_RANGE, POSTERS, VERB, NOUN, NAMES, SURNAMES, GENRES, COUNTRIES, AGE_LIMITATIONS, DESCRIPTIONS, EMOTIONS } from '../const.js';
 
+dayjs.extend(duration);
 const datesArr = [];
 for (let i = 0; i < YEARS_RANGE; i++) {
   datesArr.push(dayjs().subtract(i, 'year').format('DD MMMM YYYY'));
@@ -18,7 +20,12 @@ const createMovie = () => {
     return arr;
   };
 
-  const createDuration = () => `${getRandomInteger(1, 3)}h ${getRandomInteger(0, 59)}m`;
+  const createDuration = (minutes) => {
+    const getHours = parseInt(minutes / 60, 10);
+    const getMinutes = minutes - (getHours * 60);
+    return `${dayjs.duration({hours: getHours}).format('H')}h ${dayjs.duration({minutes: getMinutes}).format('mm')}m`;
+  };
+
   const releaseDate = datesArr[getRandomInteger(0, datesArr.length - 1)];
   const year = dayjs(releaseDate).format('YYYY');
 
@@ -53,7 +60,7 @@ const createMovie = () => {
     poster: POSTERS[getRandomInteger(0, POSTERS.length - 1)],
     rating: getRandomFloat(1, 9),
     genre: createGenresArray(),
-    duration: createDuration(),
+    duration: createDuration(getRandomInteger(30, 180)),
     country: COUNTRIES[getRandomInteger(0, COUNTRIES.length - 1)],
     director: createFullName(),
     screenwriters: createNamesList(STAFF_MIN, STAFF_MAX),
