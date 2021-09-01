@@ -46,7 +46,7 @@ export default class MovieCard {
     this._popupComponent.setFavoriteClickHandler(this._handleFavoriteClick);
     this._popupComponent.setWatchlistClickHandler(this._handleWatchlistClick);
 
-    if (prevMovieComponent === null) {
+    if (prevMovieComponent === null || prevPopupComponent === null) {
       renderElement(this._movieListContainer, this._movieComponent, RenderPosition.BEFOREEND);
       return;
     }
