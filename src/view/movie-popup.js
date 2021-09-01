@@ -104,24 +104,24 @@ const createPopupTemplate = (state) => {
               ${state.hasComments ? createCommentList(state.comments).join(' ') : ''}
             </ul>
             <div class="film-details__new-comment">
-              <div class="film-details__add-emoji-label">${state.addedEmoji ? setEmoji(state.addedEmoji) : ''}</div>
+              <div class="film-details__add-emoji-label">${state.emoji ? setEmoji(state.emoji) : ''}</div>
               <label class="film-details__comment-label">
                 <textarea class="film-details__comment-input" placeholder="Select reaction below and write comment here" name="comment"></textarea>
               </label>
               <div class="film-details__emoji-list">
-                <input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-smile" value="smile" ${state.addedEmoji === 'smile' ? 'checked' : ''}>
+                <input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-smile" value="smile" ${state.emoji === 'smile' ? 'checked' : ''}>
                 <label class="film-details__emoji-label" for="emoji-smile">
                   <img src="./images/emoji/smile.png" width="30" height="30" alt="emoji">
                 </label>
-                <input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-sleeping" value="sleeping" ${state.addedEmoji === 'sleeping' ? 'checked' : ''}>
+                <input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-sleeping" value="sleeping" ${state.emoji === 'sleeping' ? 'checked' : ''}>
                 <label class="film-details__emoji-label" for="emoji-sleeping">
                   <img src="./images/emoji/sleeping.png" width="30" height="30" alt="emoji">
                 </label>
-                <input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-puke" value="puke" ${state.addedEmoji === 'puke' ? 'checked' : ''}>
+                <input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-puke" value="puke" ${state.emoji === 'puke' ? 'checked' : ''}>
                 <label class="film-details__emoji-label" for="emoji-puke">
                   <img src="./images/emoji/puke.png" width="30" height="30" alt="emoji">
                 </label>
-                <input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-angry" value="angry" ${state.addedEmoji === 'angry' ? 'checked' : ''}>
+                <input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-angry" value="angry" ${state.emoji === 'angry' ? 'checked' : ''}>
                 <label class="film-details__emoji-label" for="emoji-angry">
                   <img src="./images/emoji/angry.png" width="30" height="30" alt="emoji">
                 </label>
@@ -180,7 +180,7 @@ export default class MoviePopupView extends SmartView {
 
   _clickEmojiHandler(e) {
     e.preventDefault();
-    this.updateData({addedEmoji: e.target.id.split('-')[1]});
+    this.updateData({emoji: e.target.id.split('-')[1]});
   }
 
   _setCommentInputHandler() {
@@ -189,7 +189,7 @@ export default class MoviePopupView extends SmartView {
 
   _commentInputHandler(e) {
     e.preventDefault();
-    this.updateData({addedComment: e.target.value}, true);
+    this.updateData({comment: e.target.value}, true);
   }
 
   _clickHandler(e) {
@@ -235,15 +235,15 @@ export default class MoviePopupView extends SmartView {
   static parseMovieToState(movie) {
     return {
       ...movie,
-      addedComment: null,
-      addedEmoji: null,
-      hasComments: movie.comments.length > 0
+      comment: null,
+      emoji: null,
+      hasComments: movie.comments.length > 0,
     };
   }
 
   static parseStateToMovie(state) {
-    delete state.addedComment;
-    delete state.addedEmoji;
+    delete state.comment;
+    delete state.emoji;
     delete state.hasComments;
 
     return state;
