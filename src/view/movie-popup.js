@@ -233,7 +233,11 @@ export default class MoviePopupView extends SmartView {
   }
 
   static parseMovieToState(movie) {
-    return {...movie, addedComment: null, addedEmoji: null, hasComments: movie.comments.length > 0};
+    return {
+      ...movie,
+      addedComment: null,
+      addedEmoji: null,
+      hasComments: movie.comments.length > 0};
   }
 
   static parseStateToMovie(state) {
