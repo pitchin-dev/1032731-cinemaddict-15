@@ -13,11 +13,13 @@ import { FILM_BLOCK_SIZE, LIST_TYPES, SORT_TYPES } from '../const';
 import MovieStatisticsView from '../view/movie-stats';
 
 export default class MovieList {
-  constructor (headerContainer, mainContainer, movies, buttons) {
+  constructor (headerContainer, mainContainer, movieModel, buttons) {
     this._headerContainer = headerContainer;
     this._mainContainer = mainContainer;
-    this._movies = movies.slice();
-    this._moviesByDefault = movies.slice();
+    this._movieModel = movieModel;
+
+    this._movies = this._getMovies();
+    this._moviesByDefault = this._getMovies();
     this._buttons = buttons;
 
     this._sortComponent = new SortPanelView(this._buttons);
@@ -29,7 +31,7 @@ export default class MovieList {
     this._movieListPresenterRated = new Map();
     this._movieListPresenterCommented = new Map();
 
-    this._showMoreMovies = this._showMoreMovies.bind(this);
+    this._renderShowMoreButton = this._renderShowMoreButton.bind(this);
     this._handleMainMovieChange = this._handleMainMovieChange.bind(this);
     this._handleRatedMovieChange = this._handleRatedMovieChange.bind(this);
     this._handleCommentedMovieChange = this._handleCommentedMovieChange.bind(this);
@@ -42,8 +44,12 @@ export default class MovieList {
     this._renderMovieList();
     this._renderMovieCardsMain();
     this._renderMovieCardsExtra();
-    this._showMoreMovies();
+    this._renderShowMoreButton();
     this._renderFooterStatistics();
+  }
+
+  _getMovies() {
+    return this._movieModel.getMovies();
   }
 
   _handleMainMovieChange(updatedMovie) {
@@ -87,7 +93,7 @@ export default class MovieList {
     this._sortMovies(sortType);
     this._clearMovieList();
     this._renderMovieCardsMain();
-    this._showMoreMovies();
+    this._renderShowMoreButton();
   }
 
   _renderMainElements() {
@@ -164,7 +170,7 @@ export default class MovieList {
     removeComponent(this._showMoreButtonComponent);
   }
 
-  _showMoreMovies() {
+  _renderShowMoreButton() {
     if (this._movies.length > this._filmsCounter) {
       renderElement(this._movieListBlockMainComponent, this._showMoreButtonComponent.getElement(), RenderPosition.BEFOREEND);
 
