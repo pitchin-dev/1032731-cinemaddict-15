@@ -1,5 +1,18 @@
 import {convertDateToMs} from './utils/date-time-utils';
 
+export const Method = {
+  GET: 'GET',
+  POST: 'POST',
+  PUT: 'PUT',
+  DELETE: 'DELETE',
+};
+
+export const EndPoint = {
+  MOVIES: 'movies',
+  COMMENTS: 'comments',
+  SYNC: 'sync',
+};
+
 export const RenderPlace = {
   BEFORE_BEGIN: 'beforebegin',
   AFTER_BEGIN: 'afterbegin',
@@ -20,6 +33,29 @@ export const UpdateType = {
   PATCH: 'PATCH',
   MINOR: 'MINOR',
   MAJOR: 'MAJOR',
+};
+
+export const StatisticFilterType = {
+  ALL_TIME: {
+    name: 'all-time',
+    shorthand: 'all',
+  },
+  TODAY: {
+    name: 'today',
+    shorthand: 'd',
+  },
+  WEEK: {
+    name: 'week',
+    shorthand: 'w',
+  },
+  MONTH: {
+    name: 'month',
+    shorthand: 'M',
+  },
+  YEAR: {
+    name: 'year',
+    shorthand: 'y',
+  },
 };
 
 export const Rank = {
