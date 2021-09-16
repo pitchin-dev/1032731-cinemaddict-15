@@ -38,7 +38,7 @@ export default class FilterView extends AbstractView {
   }
 
   getTemplate() {
-    return createFilterTemplate(this._currentFilterType, this._isActive, this._filmsCount);
+    return createFilterTemplate(this._currentFilterType, this._isActive, this._moviesCount);
   }
 
   setFilterTypeChangeHandler(callback) {
@@ -49,6 +49,10 @@ export default class FilterView extends AbstractView {
   _filterTypeChangeHandler(evt) {
     if (evt.target.tagName === 'SPAN') {
       evt.preventDefault();
+    }
+
+    if (evt.target.tagName !== 'A') {
+      return;
     }
 
     evt.preventDefault();
