@@ -285,7 +285,7 @@ export default class MovieDetailsView extends SmartView {
   }
 
   _commentDeleteClickHandler(evt) {
-    if (!evt.target.matches('.movie-details__comment-delete')) {
+    if (!evt.target.matches('.film-details__comment-delete')) {
       return;
     }
 
