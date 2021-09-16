@@ -1,14 +1,37 @@
-import MovieList from './presenter/movie-list';
-import MovieModel from './model/movies';
-import { createMovie } from './mock/movie-mock.js';
-import { buttons } from './mock/filter-mock.js';
-import { FILMS_LIST_QUANTITY } from './const.js';
+import {generateMovie} from './mock/movie';
+import {generateComment} from './mock/comment';
+import ProfileModel from './model/profile-model';
+import FilterModel from './model/filter-model';
+import MoviesModel from './model/movies-model';
+import CommentsModel from './model/comments-model';
+import ProfilePresenter from './presenter/profile-presenter';
+import FilterPresenter from './presenter/filter-presenter';
+import MoviesPresenter from './presenter/movies-presenter';
+import StatisticsView from './view/statistics-view';
+import {render} from './utils/dom-utils';
+import {MOVIES_COUNT} from './const';
 
-const header = document.querySelector('.header');
-const main = document.querySelector('.main');
-const films = new Array(FILMS_LIST_QUANTITY).fill(null).map(createMovie);
+const headerElement = document.querySelector('.header');
+const mainElement = document.querySelector('.main');
+const footerElement = document.querySelector('.footer');
+const statisticsElement = footerElement.querySelector('.footer__statistics');
 
-const movieModel = new MovieModel();
-movieModel.setMovies(films);
+const movies = new Array(MOVIES_COUNT).fill(null).map((_, index) => generateMovie(index));
+const allComments = movies.map((movie) => movie.comments.map((id) => generateComment(id)));
 
-new MovieList(header, main, movieModel, buttons).init();
+const profileModel = new ProfileModel();
+const filterModel = new FilterModel();
+const moviesModel = new MoviesModel();
+const commentsModel = new CommentsModel();
+
+const profilePresenter = new ProfilePresenter(headerElement, profileModel, moviesModel);
+const filterPresenter = new FilterPresenter(mainElement, filterModel, moviesModel);
+const moviesPresenter = new MoviesPresenter(mainElement, moviesModel, commentsModel, filterModel);
+
+moviesModel.setMovies(movies);
+commentsModel.setAllComments(allComments);
+
+profilePresenter.init();
+filterPresenter.init();
+moviesPresenter.init();
+render(statisticsElement, new StatisticsView(movies.length));

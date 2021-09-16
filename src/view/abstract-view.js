@@ -1,7 +1,7 @@
-import { createElement } from '../utils/render';
+import {createElement} from '../utils/dom-utils';
 
 export default class AbstractView {
-  constructor () {
+  constructor() {
     if (new.target === AbstractView) {
       throw new Error('Can\'t instantiate AbstractView, only concrete one.');
     }
@@ -11,7 +11,7 @@ export default class AbstractView {
   }
 
   getTemplate() {
-    throw new Error('Cannot initialize this method by the abstract class: getTemplate');
+    throw new Error('AbstractView method not implemented: getTemplate');
   }
 
   getElement() {
