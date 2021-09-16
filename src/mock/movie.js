@@ -24,6 +24,10 @@ const POSTERS = [
 const AGE_RATINGS = [0, 6, 12, 16, 18];
 
 const DIRECTORS = [
+  'George Lucas',
+  'Stephen Spielberg',
+  'Michael Bay',
+  'James Cameron',
   'Robert Zemeckis',
   'Alfred Hitchcock',
   'Michael Curtiz',
@@ -34,9 +38,13 @@ const DIRECTORS = [
   'Ethan Coen',
   'Quentin Tarantino',
   'M. Night Shyamalan',
+  'Sergey Eisenstein',
 ];
 
 const WRITERS = [
+  'George Lucas',
+  'Stephen Spielberg',
+  'Lev Tolstoy',
   'Stephen King',
   'J.R.R. Tolkien',
   'Edgar Allan Poe',
@@ -50,6 +58,11 @@ const WRITERS = [
 ];
 
 const ACTORS = [
+  'Mark Hammill',
+  'Carrey Fisher',
+  'Harrison Ford',
+  'Sir Alec Guinness',
+  'Ian McDiarmid',
   'Robert De Niro',
   'Al Pacino',
   'Dustin Hoffman',
@@ -73,6 +86,8 @@ const RELEASE_COUNTRIES = [
   'Sweden',
   'United Kingdom',
   'United States',
+  'Serbia',
+  'Spain',
 ];
 
 const GENRES = [
@@ -83,6 +98,9 @@ const GENRES = [
   'Western',
   'Cartoon',
   'Movie-Noir',
+  'Sci-Fi',
+  'Action',
+  'Documental',
 ];
 
 const DESCRIPTIONS = [
