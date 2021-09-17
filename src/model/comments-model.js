@@ -4,24 +4,19 @@ import {LOCAL_COMMENT_DEFAULT} from '../const';
 export default class CommentsModel extends AbstractObserver {
   constructor() {
     super();
-    this._allComments = [];
     this._comments = [];
     this._localComment = LOCAL_COMMENT_DEFAULT;
   }
 
-  setAllComments(allComments) {
-    this._allComments = allComments.slice();
-  }
-
-  setComments(movieId) {
-    this._comments = this._allComments[movieId].slice();
+  setComments(comments) {
+    this._comments = comments.slice();
   }
 
   getComments() {
     return this._comments;
   }
 
-  getLocalComments() {
+  getLocalComment() {
     return this._localComment;
   }
 
@@ -33,17 +28,16 @@ export default class CommentsModel extends AbstractObserver {
     this._localComment = LOCAL_COMMENT_DEFAULT;
   }
 
-  addComment(updateType, comment, updatedMovie) {
+  addComment(updateType, comment) {
     this._comments = [
       comment,
       ...this._comments,
     ];
 
-    this._allComments[updatedMovie.id] = this._comments;
-    this._notify(updateType, updatedMovie);
+    this._notify(updateType, comment);
   }
 
-  deleteComment(updateType, commentId, updatedMovie) {
+  deleteComment(updateType, commentId) {
     const index = this._comments.findIndex((comment) => comment.id === commentId);
 
     if (index === -1) {
@@ -55,7 +49,6 @@ export default class CommentsModel extends AbstractObserver {
       ...this._comments.slice(index + 1),
     ];
 
-    this._allComments[updatedMovie.id] = this._comments;
-    this._notify(updateType, updatedMovie);
+    this._notify(updateType, commentId);
   }
 }
