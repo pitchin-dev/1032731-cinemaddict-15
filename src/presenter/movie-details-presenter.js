@@ -16,9 +16,8 @@ export default class MovieDetailsPresenter {
 
   init(movie) {
     this._movie = movie;
-    this._commentsModel.setComments(this._movie.id);
     this._comments = this._commentsModel.getComments();
-    this._localComment = this._commentsModel.getLocalComments();
+    this._localComment = this._commentsModel.getLocalComment();
 
     const previous = this._movieDetailsComponent;
 
