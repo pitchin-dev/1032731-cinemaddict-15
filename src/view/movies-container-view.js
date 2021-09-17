@@ -10,7 +10,7 @@ const createMoviesTemplate = (moviesCount, title) => (
   </section>`
 );
 
-export default class FilmsContainerView extends AbstractView {
+export default class MoviesContainerView extends AbstractView {
   constructor(moviesCount, title) {
     super();
     this._moviesCount = moviesCount;
