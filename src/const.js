@@ -10,7 +10,7 @@ export const LOCAL_COMMENT_DEFAULT = {emotion: '', comment: ''};
 
 export const END_POINT = 'https://15.ecmascript.pages.academy/cinemaddict';
 
-export const AUTHORIZATION = 'Basic 0K3RgtC+IPCfkJQg0L3QsCDRgdC80LXRhSE=';
+export const AUTHORIZATION = 'Basic 0K3RgtC+IPCfkJQg0L3QsCDRgdC80';
 
 export const MAIN_TITLE = 'All movies. Upcoming';
 
