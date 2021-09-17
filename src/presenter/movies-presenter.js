@@ -82,7 +82,7 @@ export default class MoviesPresenter {
 
   _renderMoviesContainer() {
     this._moviesContainerComponent = new MoviesContainerView(this._getMovies().length, FilterType[this._filterModel.getFilter().toUpperCase()].title);
-    this._movieListContainerElement = this._moviesContainerComponent.getElement().querySelector('.movies-list__container');
+    this._movieListContainerElement = this._moviesContainerComponent.getElement().querySelector('.films-list__container');
     render(this._mainContainer, this._moviesContainerComponent);
   }
 
@@ -170,7 +170,7 @@ export default class MoviesPresenter {
 
         if (sortedMovies.length) {
           const newMoviesExtraComponent = new MoviesExtraView(title);
-          const movieListContainerElement = newMoviesExtraComponent.getElement().querySelector('.movies-list__container');
+          const movieListContainerElement = newMoviesExtraComponent.getElement().querySelector('.films-list__container');
 
           render(this._moviesContainerComponent, newMoviesExtraComponent);
           sortedMovies.map((sortedMovie) => this._renderMovie(movieListContainerElement, sortedMovie, title));
