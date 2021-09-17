@@ -1,6 +1,6 @@
 import AbstractObserver from '../utils/abstract-observer.js';
 
-export default class MoviesModel extends AbstractObserver {
+export default class FilmsModel extends AbstractObserver {
   constructor() {
     super();
     this._movies = [];
@@ -19,7 +19,7 @@ export default class MoviesModel extends AbstractObserver {
     const index = this._movies.findIndex((movie) => movie.id === updatedMovie.id);
 
     if (index === -1) {
-      throw new Error('Can\'t update unexisting movie');
+      throw new Error('Can\'t update unexisting film');
     }
 
     this._movies = [
@@ -41,18 +41,18 @@ export default class MoviesModel extends AbstractObserver {
         favorite: movie['user_details']['favorite'],
       },
       movieInfo: {
-        ...movie['movie_info'],
-        alternativeTitle: movie['movie_info']['alternative_title'],
-        totalRating: movie['movie_info']['total_rating'],
-        ageRating: movie['movie_info']['age_rating'],
+        ...movie['film_info'],
+        alternativeTitle: movie['film_info']['alternative_title'],
+        totalRating: movie['film_info']['total_rating'],
+        ageRating: movie['film_info']['age_rating'],
         release: {
-          date: movie['movie_info']['release']['date'],
-          releaseCountry: movie['movie_info']['release']['release_country'],
+          date: movie['film_info']['release']['date'],
+          releaseCountry: movie['film_info']['release']['release_country'],
         },
       }};
 
     delete adaptedMovie['user_details'];
-    delete adaptedMovie['movie_info'];
+    delete adaptedMovie['film_info'];
     delete adaptedMovie.movieInfo['alternative_title'];
     delete adaptedMovie.movieInfo['total_rating'];
     delete adaptedMovie.movieInfo['age_rating'];
@@ -61,7 +61,7 @@ export default class MoviesModel extends AbstractObserver {
   }
 
   static adaptToServer(movie) {
-    const adaptedMovie = {
+    const adaptedFilm = {
       ...movie,
       'user_details': {
         'watchlist': movie.userDetails.watchlist,
@@ -69,7 +69,7 @@ export default class MoviesModel extends AbstractObserver {
         'watching_date': movie.userDetails.watchingDate,
         'favorite': movie.userDetails.favorite,
       },
-      'movie_info': {
+      'film_info': {
         ...movie.movieInfo,
         'alternative_title': movie.movieInfo.alternativeTitle,
         'total_rating': movie.movieInfo.totalRating,
@@ -80,12 +80,12 @@ export default class MoviesModel extends AbstractObserver {
         },
       }};
 
-    delete adaptedMovie.userDetails;
-    delete adaptedMovie.movieInfo;
-    delete adaptedMovie['movie_info']['alternativeTitle'];
-    delete adaptedMovie['movie_info']['totalRating'];
-    delete adaptedMovie['movie_info']['ageRating'];
+    delete adaptedFilm.userDetails;
+    delete adaptedFilm.movieInfo;
+    delete adaptedFilm['film_info']['alternativeTitle'];
+    delete adaptedFilm['film_info']['totalRating'];
+    delete adaptedFilm['film_info']['ageRating'];
 
-    return adaptedMovie;
+    return adaptedFilm;
   }
 }
