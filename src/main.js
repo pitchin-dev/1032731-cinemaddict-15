@@ -63,7 +63,7 @@ moviesPresenter.init();
 render(footerStatisticContainer, footerStatisticComponent);
 
 api.getMovies()
-  .then((films) => moviesModel.setMovies(UpdateType.INIT, films))
+  .then((movies) => moviesModel.setMovies(UpdateType.INIT, movies))
   .then(() => {
     remove(footerStatisticComponent);
     render(footerStatisticContainer, new FooterStatisticView(moviesModel.getMovies().length));
